@@ -1,11 +1,78 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.1" method="upgrade">
+	<name>com_parkway</name>
+	<author>TKOrlando</author>
+	<creationDate>August 2016</creationDate>
+	<copyright>(C) 2016 TKOrlando. All rights reserved.</copyright>
+	<license>see LICENSE.txt</license>
+	<authorEmail>support@tkorlando.com</authorEmail>
+	<authorUrl>www.tkorlando.com</authorUrl>
+	<version>0.0.1</version>
+	<description>Parkway Online Property Listings.</description>
+        
+        <!-- Runs on install/uninstall/update; New in 1.6 -->
+        <scriptfile>install.php</scriptfile>
+
+	
+	<install> <!-- Runs on install -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+        <uninstall> <!-- Runs on uninstall -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+
+	<files folder="site">
+		<filename>parkway.php</filename>
+		<filename>controller.php</filename>
+		<filename>metadata.xml</filename>
+                <filename>index.html</filename>
+                <folder>assets</folder>
+		<folder>controllers</folder>
+                <folder>helpers</folder>
+		<folder>models</folder>
+                <folder>views</folder>
+	</files>
+	<languages folder="site">
+		<language tag="en-GB">language/en-GB/en-GB.com_parkway.ini</language>
+	</languages>
+
+	<administration>
+		<menu>com_parkway</menu>
+		<submenu>
+			<!--
+				Note that all & must be escaped to &amp; for the file to be valid
+				XML and be parsed by the installer
+			-->
+			
+			<menu link="option=com_config&amp;view=component&amp;component=com_parkway" view="categories" img="class:parkway" alt="parkway/Options">Options</menu>
+		</submenu>
+                
+		<files folder="admin">
+			<filename>access.xml</filename>
+			<filename>parkway.php</filename>
+                        <filename>config.xml</filename>
+                        <filename>controller.php</filename>
+			<filename>index.html</filename>
+                        <filename>metadata.xml</filename>
+                        <folder>assets</folder>
+                        <folder>classes</folder>
+                        <folder>controllers</folder>
+                        <folder>help</folder>
+			<folder>helpers</folder>
+                        <folder>models</folder>
+                        <folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/en-GB.com_parkway.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_parkway.sys.ini</language>
+		</languages>
+	</administration>
+</extension>
 
 
-<root>
-    
-</root>

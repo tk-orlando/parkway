@@ -1,11 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <fieldset label="com_parkway" name="parkway">
+        
+        
+        
+    </fieldset>
+    <fieldset 
+        name="permissions"
+	description="JCONFIG_PERMISSIONS_DESC"
+	label="JCONFIG_PERMISSIONS_LABEL">
 
-
-<root>
-    
-</root>
+		<field 
+                    name="rules" 
+                    type="rules" 
+                    component="com_parkway"
+                    class="inputbox" 
+                    filter="rules" 
+                    validate="rules"
+                    label="JCONFIG_PERMISSIONS_LABEL"
+                    section="component" />
+    </fieldset>
+        
+        
+        
+        
+        
+        
+        
+        
+</config>

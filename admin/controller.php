@@ -7,23 +7,30 @@
  * @license     Private; see LICENSE.txt
  * @author      Support <support@tkorlando.com> - http://tkorlando.com
  */
-// No direct access
+
 defined('_JEXEC') or die;
 
-class parkwayController extends JControllerLegacy {
 
+
+
+class ParkwayController extends JControllerLegacy
+{
     
-    public function display($cachable = false, $urlparams = false) {
-        
-        require_once JPATH_COMPONENT . '/helpers/parkway.php';
+    
+    protected $default_view = 'properties';
+	
+	public function display($cachable = false, $urlparams = array())
+	{
+		//ParkwayHelper::updateReset();
 
-        $view = JFactory::getApplication()->input->getCmd('view', '');
-        JFactory::getApplication()->input->set('view', $view);
+		$view   = $this->input->get('view', 'properties');
+		$layout = $this->input->get('layout', 'default');
+		$id     = $this->input->getInt('id');
 
-        parent::display($cachable, $urlparams);
+		
 
-        return $this;
-    }
-
+		parent::display();
+                
+                return $this;
+	}
 }
-

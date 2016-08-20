@@ -3,7 +3,7 @@
 defined('_JEXEC') or die;
 
 
-class ParkwayViewProperty extends JViewLegacy
+class ParkwayViewBuilding extends JViewLegacy
 {
     
     protected $form = null;
@@ -41,11 +41,11 @@ class ParkwayViewProperty extends JViewLegacy
  
 		if ($isNew)
 		{
-			$title = JText::_('COM_PARKWAY_MANAGER_PROPERTY_NEW');
+			$title = JText::_('COM_PARKWAY_MANAGER_BUILDING_NEW');
 		}
 		else
 		{
-			$title = JText::_('COM_PARKWAY_MANAGER_PROPERTY_EDIT');
+			$title = JText::_('COM_PARKWAY_MANAGER_BUILDING_EDIT');
 		}
 
             
@@ -53,11 +53,11 @@ class ParkwayViewProperty extends JViewLegacy
 // Get the toolbar object instance
             //$bar = JToolBar::getInstance('toolbar');
 
-            JToolbarHelper::title(JText::_('Parkway: Property'), 'property');
+            JToolbarHelper::title(JText::_('Parkway: Building'), 'building');
             //JToolbarHelper::addNew('property.save');
             //JToolbarHelper::apply('property.apply');
-            JToolbarHelper::save('property.save');
-            JToolBarHelper::cancel('property.cancel',
+            JToolbarHelper::save('building.save');
+            JToolBarHelper::cancel('building.cancel',
 			$isNew ? 'JTOOLBAR_CANCEL' : 'JTOOLBAR_CLOSE');
             //JToolbarHelper::addNew('new', 'NEW');
            
@@ -68,7 +68,7 @@ class ParkwayViewProperty extends JViewLegacy
 
             
 
-            JToolbarHelper::help('COM_PARKWAY_JHELP_VIEW_PROPERTY', true);
+            JToolbarHelper::help('COM_PARKWAY_JHELP_VIEW_BUILDING', true);
 
             JHtmlSidebar::setAction('index.php?option=com_parkway');
 
@@ -79,5 +79,7 @@ class ParkwayViewProperty extends JViewLegacy
     }
 	
 }
+
+
 
 

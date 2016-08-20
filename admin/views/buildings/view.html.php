@@ -3,10 +3,9 @@
 defined('_JEXEC') or die;
 
 
-class ParkwayViewProperties extends JViewLegacy
-{
-	
-	public function display($tpl = null)
+class parkwayViewBuildings extends JViewLegacy{
+    
+    public function display($tpl = null)
 	{
 		$this->addToolbar();
 
@@ -16,10 +15,10 @@ class ParkwayViewProperties extends JViewLegacy
 	
 	protected function addToolbar()
 	{
-		JToolbarHelper::title(JText::_('Parkway: Properties'), 'properties');
+		JToolbarHelper::title(JText::_('Parkway: Buildings'), 'buildings');
                 
-                JToolbarHelper::addNew('properties.add');
-                 JToolbarHelper::deleteList('', 'properties.remove');
+                JToolbarHelper::addNew('buildings.add');
+                 JToolbarHelper::deleteList('', 'buildings.remove');
 	}
 
 	/**
@@ -33,5 +32,7 @@ class ParkwayViewProperties extends JViewLegacy
 	{
 		
 	}
+    
+    
 }
 
