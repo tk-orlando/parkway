@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+				name="id"
+				type="hidden"
+				/>
+		
+                
+                <field
+				name="building_id"
+				type="sql"
+				query="SELECT id, name FROM #__parkway_buildings" key_field="id" value_field="name"
+                                label="COM_PARKWAY_VACANCY_BUILDINGID_LABEL"
+				description="COM_PARKWAY_VACANCY_BUILDINGID_DESC"
+				size=""
+				class=""
+				default=""
+				>
+                                <option value="">Choose One</option>
+                </field>
+                <field
+				name="floorplan_id"
+				type="sql"
+				query="SELECT id, name FROM #__parkway_floorplans" key_field="id" value_field="name"
+                                label="COM_PARKWAY_VACANCY_FLOORPLANID_LABEL"
+				description="COM_PARKWAY_VACANCY_FLOORPLANID_DESC"
+				size=""
+				class=""
+				default=""
+				>
+                                <option value="">Choose One</option>
+                </field>
+                
+                <field
+				name="floor"
+				type="text"
+				label="COM_PARKWAY_BUILDING_ADDRESS1_LABEL"
+				description="COM_PARKWAY_VACANCY_FLOOR_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+                <field
+				name="suite"
+				type="text"
+				label="COM_PARKWAY_BUILDING_ADDRESS1_LABEL"
+				description="COM_PARKWAY_VACANCY_SUITE_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+                <field
+				name="available_space"
+				type="text"
+				label="COM_PARKWAY_BUILDING_ADDRESS1_LABEL"
+				description="COM_PARKWAY_VACANCY_AVAILABLESPACE_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+                <field
+				name="date_available"
+				type="text"
+				label="COM_PARKWAY_BUILDING_ADDRESS1_LABEL"
+				description="COM_PARKWAY_VACANCY_DATEAVAILABLE_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+                
+                
+                
+                
+                
+	</fieldset>
+</form>
+
