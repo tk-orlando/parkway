@@ -14,7 +14,13 @@ $this->items = $this->get('Items');
 
 
 
-    <table>
+    <table class="table table-striped" >
+        
+        <tr>
+            <th></th>
+            <th>Name</th>
+        </tr>
+        
     
         <?php  foreach ($this->items as $key => $value): ?>
             <tr>

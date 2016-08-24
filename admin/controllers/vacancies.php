@@ -32,7 +32,7 @@ class parkwayControllerVacancies extends JControllerForm{
         public function add(){
               //redirects user back to blog homepage with Cancellation Message
            
-            $this->setRedirect( 'index.php?option=com_parkway&view=vacancies&layout=add' );
+            $this->setRedirect( 'index.php?option=com_parkway&view=vacancy&layout=add' );
         }
         public function deleteList(){
             

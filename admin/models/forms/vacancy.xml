@@ -22,7 +22,7 @@
                 <field
 				name="floorplan_id"
 				type="sql"
-				query="SELECT id, name FROM #__parkway_floorplans" key_field="id" value_field="name"
+				query="SELECT id, title FROM #__parkway_floorplans" key_field="id" value_field="name"
                                 label="COM_PARKWAY_VACANCY_FLOORPLANID_LABEL"
 				description="COM_PARKWAY_VACANCY_FLOORPLANID_DESC"
 				size=""
@@ -35,7 +35,7 @@
                 <field
 				name="floor"
 				type="text"
-				label="COM_PARKWAY_BUILDING_ADDRESS1_LABEL"
+				label="COM_PARKWAY_VACANCY_FLOOR_LABEL"
 				description="COM_PARKWAY_VACANCY_FLOOR_DESC"
 				size="40"
 				class="inputbox"
@@ -44,7 +44,7 @@
                 <field
 				name="suite"
 				type="text"
-				label="COM_PARKWAY_BUILDING_ADDRESS1_LABEL"
+				label="COM_PARKWAY_VACANCY_SUITE_LABEL"
 				description="COM_PARKWAY_VACANCY_SUITE_DESC"
 				size="40"
 				class="inputbox"
@@ -53,20 +53,44 @@
                 <field
 				name="available_space"
 				type="text"
-				label="COM_PARKWAY_BUILDING_ADDRESS1_LABEL"
+				label="COM_PARKWAY_VACANCY_AVAILABLESPACE_LABEL"
 				description="COM_PARKWAY_VACANCY_AVAILABLESPACE_DESC"
 				size="40"
 				class="inputbox"
 				default=""
 				/>
-                <field
-				name="date_available"
+                 <field
+				name="divisible"
+				type="radio"
+				label="COM_PARKWAY_VACANCY_DIVISIBLE_LABEL"
+				description="COM_PARKWAY_VACANCY_DIVISIBLE_DESC"
+				size="40"
+				class="btn-group btn-group-yesno"
+				default=""
+				>
+                                <option value="1">JYES</option>
+                                <option value="0">JNO</option>
+                </field>
+                 
+                  <field
+				name="market_rent"
 				type="text"
-				label="COM_PARKWAY_BUILDING_ADDRESS1_LABEL"
-				description="COM_PARKWAY_VACANCY_DATEAVAILABLE_DESC"
+				label="COM_PARKWAY_VACANCY_MARKETRENT_LABEL"
+				description="COM_PARKWAY_VACANCY_MARKETRENT_DESC"
 				size="40"
 				class="inputbox"
 				default=""
+				/>
+                                
+                                
+                <field
+				name="date_available"
+				type="calendar"
+				label="COM_PARKWAY_VACANCY_DATEAVAILABLE_LABEL"
+				description="COM_PARKWAY_VACANCY_DATEAVAILABLE_DESC"
+				size="40"
+				class="calendar"
+				default="0000-00-00"
 				/>
                 
                 

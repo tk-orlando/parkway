@@ -14,12 +14,35 @@ $this->items = $this->get('Items');
 
 
 
-    <table>
-    
+    <table class="table table-striped" >
+            <tr>
+                <th>
+                    
+                </th>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Building
+                </th>
+                
+                <th>
+                    Floor
+                </th>
+                <th>
+                    Suite
+                </th>
+            </tr>
         <?php  foreach ($this->items as $key => $value): ?>
+            
+        
             <tr>
                 <td><input id="cb0" name="cid[]" value="<?php echo $value->id ?>" onclick="Joomla.isChecked(this.checked);" type="checkbox"></td>
-                <td><a href="index.php?option=com_parkway&view=vacancy&layout=edit&id=<?php echo $value->id  ?>"><?php echo $value->name ?></a></td>
+                <td><div ><a href="index.php?option=com_parkway&view=vacancy&layout=edit&id=<?php echo $value->id  ?>"><?php echo $value->id ?></a></div></td>
+                <td><div ><?php echo $value->building_name ?></div></td>
+                
+                <td><div ><?php echo $value->floor ?></div></td>
+                <td><div ><?php echo $value->suite ?></div></td>
             </tr>
         <?php endforeach; ?>
     

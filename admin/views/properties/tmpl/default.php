@@ -15,8 +15,18 @@ $this->items = $this->get('Items');
 
 
 
-    <table>
+    <table class="table table-striped" >
     
+        <tr>
+            <th>
+                
+            </th>
+            <th>
+                Title
+            </th>
+        </tr>
+        
+        
         <?php  foreach ($this->items as $key => $value): ?>
             <tr>
                 <td><input id="cb0" name="cid[]" value="<?php echo $value->id ?>" onclick="Joomla.isChecked(this.checked);" type="checkbox"></td>

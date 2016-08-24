@@ -51,8 +51,16 @@ class parkwayModelVacancies extends JModelItem{
         
         $db = JFactory::getDbo();
         $query = $db->getQuery(true)
-                ->select('*')
-                ->from('#__parkway_vacancies');
+                //->select('*')
+                //->from('#__parkway_vacancies')
+                ->select('vacancies.id, vacancies.building_id, vacancies.floorplan_id,vacancies.floor, vacancies.suite, buildings.name as building_name')
+                ->from('#__parkway_vacancies as vacancies')
+                ->leftjoin('#__parkway_buildings as buildings ON buildings.id = vacancies.building_id')
+               
+                ;
+                
+                
+                ;
 
        
         $db->setQuery($query);

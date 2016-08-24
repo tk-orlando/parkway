@@ -42,6 +42,8 @@ class ParkwayControllerVacancy extends JControllerAdmin
                 $data->floor                = $form['floor'];
                 $data->suite                = $form['suite'];
                 $data->available_space      = $form['available_space'];
+                $data->divisible            = $form['divisible'];
+                $data->market_rent          = $form['market_rent'];
                 $data->date_available       = $form['date_available'];
                 
                 

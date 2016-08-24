@@ -52,7 +52,11 @@ class parkwayModelBuildings extends JModelItem{
         $db = JFactory::getDbo();
         $query = $db->getQuery(true)
                 ->select('*')
-                ->from('#__parkway_buildings');
+                ->from('#__parkway_buildings')
+                
+                ;
+        
+        
 
        
         $db->setQuery($query);
