@@ -52,11 +52,11 @@
 				/>
                 <field
 				name="available_space"
-				type="text"
+				type="number"
 				label="COM_PARKWAY_VACANCY_AVAILABLESPACE_LABEL"
 				description="COM_PARKWAY_VACANCY_AVAILABLESPACE_DESC"
 				size="40"
-				class="inputbox"
+				class="inputbox validate-numeric required"
 				default=""
 				/>
                  <field
@@ -74,14 +74,23 @@
                  
                   <field
 				name="market_rent"
-				type="text"
+				type="number"
 				label="COM_PARKWAY_VACANCY_MARKETRENT_LABEL"
 				description="COM_PARKWAY_VACANCY_MARKETRENT_DESC"
 				size="40"
-				class="inputbox"
+				class="validate-numeric required"
 				default=""
-				/>
                                 
+				/>
+                <field
+				name="pdf"
+				type="file"
+				label="COM_PARKWAY_VACANCY_PDF_LABEL"
+				description="COM_PARKWAY_VACANCY_PDF_DESC"
+				size="40"
+				class="media"
+				default=""
+				/>                
                                 
                 <field
 				name="date_available"

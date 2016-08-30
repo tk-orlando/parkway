@@ -25,6 +25,8 @@ class ParkwayViewVacancy extends JViewLegacy
         
         
         $this->addToolbar();
+        
+                
         //JHtml::_('jquery.framework');
 
         return parent::display($tpl);

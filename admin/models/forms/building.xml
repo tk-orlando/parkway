@@ -122,20 +122,20 @@
                 
                 <field
 				name="zip"
-				type="text"
+				type="number"
 				label="COM_PARKWAY_BUILDING_ZIP_LABEL"
 				description="COM_PARKWAY_BUILDING_ZIP_DESC"
 				size="20"
-				class=""
+				class="validate-numeric required"
 				default=""
 				/>
                 <field
 				name="floor_size"
-				type="text"
+				type="number"
 				label="COM_PARKWAY_BUILDING_FLOORSIZE_LABEL"
 				description="COM_PARKWAY_BUILDING_FLOORSIZE_DESC"
 				size="40"
-				class="inputbox"
+				class="inputbox validate-numeric required"
 				default=""
 				/>
                 <field
@@ -149,11 +149,11 @@
 				/>
                 <field
 				name="typical_floor_size"
-				type="text"
+				type="number"
 				label="COM_PARKWAY_BUILDING_TFLOORSIZE_LABEL"
 				description="COM_PARKWAY_BUILDING_TFLOORSIZE_DESC"
 				size="40"
-				class="inputbox"
+				class="inputbox validate-numeric required"
 				default=""
 				/>
                 <field

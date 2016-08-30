@@ -16,10 +16,14 @@ class ParkwayViewProperties extends JViewLegacy
 	
 	protected function addToolbar()
 	{
-		JToolbarHelper::title(JText::_('Parkway: Properties'), 'properties');
+            require_once JPATH_COMPONENT . '/helpers/menu.php';
+            menuHelper::addSubmenu('properties');
+            $this->sidebar = JHtmlSidebar::render();	
+            
+            JToolbarHelper::title(JText::_('Parkway: Properties'), 'properties');
                 
-                JToolbarHelper::addNew('properties.add');
-                 JToolbarHelper::deleteList('', 'properties.remove');
+            JToolbarHelper::addNew('properties.add');
+            JToolbarHelper::deleteList('', 'properties.remove');
 	}
 
 	/**

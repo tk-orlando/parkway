@@ -15,10 +15,14 @@ class parkwayViewBuildings extends JViewLegacy{
 	
 	protected function addToolbar()
 	{
-		JToolbarHelper::title(JText::_('Parkway: Buildings'), 'buildings');
+            require_once JPATH_COMPONENT . '/helpers/menu.php';
+            menuHelper::addSubmenu('buildings');
+            $this->sidebar = JHtmlSidebar::render();
+            
+            JToolbarHelper::title(JText::_('Parkway: Buildings'), 'buildings');
                 
-                JToolbarHelper::addNew('buildings.add');
-                 JToolbarHelper::deleteList('', 'buildings.remove');
+            JToolbarHelper::addNew('buildings.add');
+             JToolbarHelper::deleteList('', 'buildings.remove');
 	}
 
 	/**

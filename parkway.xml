@@ -50,11 +50,10 @@
 			
 			<menu link="option=com_parkway&amp;view=properties" view="Properties" img="class:parkway" alt="parkway/Properties">Properties</menu>
                         <menu link="option=com_parkway&amp;view=buildings" view="Buildings" img="class:parkway" alt="parkway/Buildings">Buildings</menu>
-                        <menu link="option=com_parkway&amp;view=floorplans" view="FloorPlans" img="class:parkway" alt="parkway/FloorPlans">Floor Plans</menu>
+                        <menu link="option=com_parkway&amp;view=floorplans" view="Floorplans" img="class:parkway" alt="parkway/FloorPlans">Floor Plans</menu>
                         <menu link="option=com_parkway&amp;view=vacancies" view="Vacancies" img="class:parkway" alt="parkway/Vacancies">Vacancies</menu>
-                        <menu link="option=com_parkway&amp;view=teams" view="Teams" img="class:parkway" alt="parkway/Teams">Teams</menu>
-                        <menu link="option=com_parkway&amp;view=tags" view="Tags" img="class:parkway" alt="parkway/Tags">Tags</menu>
-                        <menu link="option=com_config&amp;view=component&amp;component=com_parkway" view="categories" img="class:parkway" alt="parkway/Options">Options</menu>
+                       
+                        
                 </submenu>
                 
 		<files folder="admin">

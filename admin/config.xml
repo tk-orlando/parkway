@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-    <fieldset label="com_parkway" name="parkway">
+    <fieldset label="COM_PARKWAY_OPTIONS_TAP_LABEL" name="parkway">
+        <field 
+            nam="pdfuploadfolder"
+            type="folderlist"
+            label="COM_PARKWAY_PDF_UPLOADS_LABEL"
+            directory="media/media"
         
+        />
+        <field 
+            nam="widgetkitfolder"
+            type="folderlist"
+            label="COM_PARKWAY_WIDGETKIT_LABEL"
+            directory="media/media"
         
+        />
         
     </fieldset>
     <fieldset 

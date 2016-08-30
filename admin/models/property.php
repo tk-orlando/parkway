@@ -55,7 +55,7 @@ class ParkwayModelProperty extends JModelAdmin
     public function getItem(){
         
         $propertyID = JRequest::getVar('id', 0, 'get') ;
-        
+        $params = JComponentHelper::getParams('com_parkway');
         
         
         
