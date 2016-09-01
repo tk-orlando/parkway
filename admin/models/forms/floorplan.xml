@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+				name="id"
+				type="hidden"
+				/>
+		
+                
+                <field
+				name="building_id"
+				type="sql"
+				query="SELECT id, name FROM #__parkway_buildings" key_field="id" value_field="name"
+                                label="COM_PARKWAY_FLOORPLAN_BUILDINGID_LABEL"
+				description="COM_PARKWAY_FLOORPLAN_BUILDINGID_DESC"
+				size=""
+				class=""
+				default=""
+				>
+                                <option value="">Choose One</option>
+                </field>
+                
+                
+                <field
+				name="title"
+				type="text"
+				label="COM_PARKWAY_FLOORPLAN_TITLE_LABEL"
+				description="COM_PARKWAY_FLOORPLAN_TITLE_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+                <field
+				name="image"
+				type="file"
+				label="COM_PARKWAY_FLOORPLAN_IMAGE_LABEL"
+				description="COM_PARKWAY_FLOORPLAN_IMAGE_DESC"
+				size=""
+                                accept="image/*"
+				class="file"
+				default=""
+				/>
+                <field
+				name="coordinates"
+				type="textarea"
+				label="COM_PARKWAY_FLOORPLAN_COORDINATES_LABEL"
+				description="COM_PARKWAY_FLOORPLAN_COORDINATES_DESC"
+				size=""
+				class="inputbox"
+				default=""
+				/>
+			
+                
+                
+                
+                
+                
+	</fieldset>
+</form>
+

@@ -22,12 +22,14 @@ class menuHelper extends JHelperContent
                 JText::_('COM_PARKWAY_SUBMENU_FLOORPLANS'), 'index.php?option=com_parkway&view=floorplans', $viewName == 'floorplans' 
                 );
         JHtmlSidebar::addEntry(
-                JText::_('COM_PARKWAY_SUBMENU_VACANCIES'), 'index.php?option=com_parkway&view=vacancies', $viewName == 'vacancies' 
+                JText::_('COM_PARKWAY_SUBMENU_SUITEPLANS'), 'index.php?option=com_parkway&view=suiteplans', $viewName == 'suiteplans' 
                 );
         
         JHtmlSidebar::addEntry(
-                JText::_('COM_PARKWAY_SUBMENU_TAGS'), 'index.php?option=com_parkway&view=tags', $viewName == 'tags' 
+                JText::_('COM_PARKWAY_SUBMENU_VACANCIES'), 'index.php?option=com_parkway&view=vacancies', $viewName == 'vacancies' 
                 );
+        
+        
         
         
         

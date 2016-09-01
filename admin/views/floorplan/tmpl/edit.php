@@ -4,23 +4,19 @@
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
- JHtml::_('behavior.formvalidator');
+ 
 //print_r($this->item);
-
- 
- 
+JHtml::_('behavior.formvalidator');
 ?>
 
-    <img src = "<?php echo "/media/com_parkway/".$this->item->id."/".$this->item->image ?>">
-    
 
-    
-    
-<form action="<?php echo JRoute::_('index.php?option=com_parkway&view=building&layout=edit&id=' . (int) $this->item->id); ?>"
-    method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data" >
+ <img src = "<?php echo "/media/com_parkway/".$this->item->building_id."/".$this->item->image ?>">
+
+<form action="<?php echo JRoute::_('index.php?option=com_parkway&view=floorplan&layout=edit&id=' . (int) $this->item->id); ?>"
+    method="post" name="adminForm" id="adminForm" class="form-validate"  enctype="multipart/form-data" >
     <div class="form-horizontal">
         <fieldset class="adminform">
-            <legend><?php echo JText::_('COM_PARKWAY_BUILDING_DETAILS'); ?></legend>
+            <legend><?php echo JText::_('COM_PARKWAY_FLOORPLAN_DETAILS'); ?></legend>
             <div class="row-fluid">
                 <div class="span6">
                     <?php foreach ($this->form->getFieldset() as $field): ?>
@@ -33,6 +29,6 @@ defined('_JEXEC') or die('Restricted access');
             </div>
         </fieldset>
     </div>
-    <input type="hidden" name="task" value="building.add" />
+    <input type="hidden" name="task" value="floorplan.add" />
     <?php echo JHtml::_('form.token'); ?>
 </form>

@@ -21,12 +21,13 @@
                 </field>
                 <field
 				name="floorplan_id"
-				type="sql"
+				type="floorplan"
 				query="SELECT id, title FROM #__parkway_floorplans" key_field="id" value_field="name"
                                 label="COM_PARKWAY_VACANCY_FLOORPLANID_LABEL"
 				description="COM_PARKWAY_VACANCY_FLOORPLANID_DESC"
 				size=""
 				class=""
+                                
 				default=""
 				>
                                 <option value="">Choose One</option>
@@ -82,15 +83,8 @@
 				default=""
                                 
 				/>
-                <field
-				name="pdf"
-				type="file"
-				label="COM_PARKWAY_VACANCY_PDF_LABEL"
-				description="COM_PARKWAY_VACANCY_PDF_DESC"
-				size="40"
-				class="media"
-				default=""
-				/>                
+                 
+                              
                                 
                 <field
 				name="date_available"
@@ -102,7 +96,15 @@
 				default="0000-00-00"
 				/>
                 
-                
+                <field
+				name="pdf"
+				type="file"
+				label="COM_PARKWAY_VACANCY_PDF_LABEL"
+				description="COM_PARKWAY_VACANCY_PDF_DESC"
+				size="40"
+				class="media"
+				default=""
+				/>
                 
                 
                 

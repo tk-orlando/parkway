@@ -5,10 +5,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-class ParkwayModelBuilding extends JModelAdmin
+class ParkwayModelFloorplan extends JModelAdmin
 {
     
-    public function getTable($type = 'Building', $prefix = 'ParkwayTable', $config = array())
+    public function getTable($type = 'Floorplan', $prefix = 'ParkwayTable', $config = array())
     {
             return JTable::getInstance($type, $prefix, $config);
     }
@@ -16,8 +16,8 @@ class ParkwayModelBuilding extends JModelAdmin
     {
             // Get the form.
             $form = $this->loadForm(
-                    'com_parkway.building',
-                    'building',
+                    'com_parkway.floorplan',
+                    'floorplan',
                     array(
                             'control' => 'jform',
                             'load_data' => $loadData
@@ -28,7 +28,7 @@ class ParkwayModelBuilding extends JModelAdmin
 
             if (empty($form))
             {
-                  
+                   
                 return false;
             }
 
@@ -39,7 +39,7 @@ class ParkwayModelBuilding extends JModelAdmin
     {
             // Check the session for previously entered form data.
             $data = JFactory::getApplication()->getUserState(
-                    'com_parkway.edit.building.data',
+                    'com_parkway.edit.floorplan.data',
                     array()
             );
 
@@ -54,23 +54,18 @@ class ParkwayModelBuilding extends JModelAdmin
     
     public function getItem(){
         
-        $buildingID = JRequest::getVar('id', 0, 'get') ;
+        $floorplanID = JRequest::getVar('id', 0, 'get') ;
         
-        
-        
-        
-       
-
         try
         {
             
             
-            if ($buildingID > 0){
+            if ($floorplanID > 0){
             $db = JFactory::getDbo();
             $query = $db->getQuery(true)
                 ->select('*')
-                ->from('#__parkway_buildings')
-                ->where("id = $buildingID "   );
+                ->from('#__parkway_floorplans')
+                ->where("id = $floorplanID "   );
 
        
                 $db->setQuery($query);
@@ -78,11 +73,11 @@ class ParkwayModelBuilding extends JModelAdmin
                 $result = $db->loadObject();
                 return $result;
                 
-            }else if ($buildingID == 0){
+            }else if ($floorplanID == 0){
                 
                 $result = new stdClass();
                 $result->id = 0;
-                $result->name = '';        
+                       
                 
                 return $result;
                 
@@ -105,6 +100,10 @@ class ParkwayModelBuilding extends JModelAdmin
     
 	
 }
+
+
+
+
 
 
 

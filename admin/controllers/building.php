@@ -40,6 +40,12 @@ class ParkwayControllerBuilding extends JControllerAdmin
             //get form variables
              $form = JRequest::getVar( 'jform' );
             
+            $jinput = JFactory::getApplication()->input;
+            $files = $jinput->files->get('jform'); 
+            $file= $files['image'];
+             
+             
+             
              $data =new stdClass();
                 $data->id                   = $form['id'];
                 $data->name                 = $form['name'];
@@ -55,6 +61,13 @@ class ParkwayControllerBuilding extends JControllerAdmin
                 $data->parking_ratio        = $form['parking_ratio'];
                 $data->amenities            = $form['amenities'];
                 
+                if (!empty($file['name'])){
+                    $data->image                = $file['name'];
+                }
+                
+                $data->coordinates          = $form['coordinates'];          
+                $data->published            = $form['published'];
+                        
                 $db = JFactory::getDBO();
             
 
@@ -70,6 +83,19 @@ class ParkwayControllerBuilding extends JControllerAdmin
                     $db->updateObject( '#__parkway_buildings', $data, id );
             }
             
+            
+            if (!empty($file['name'])){
+                $filename = JFile::makeSafe($file['name']); 
+
+                $source = $file['tmp_name'];
+                $destination = JPATH_ROOT . '/media/com_parkway/'.$data->id.'/' . $filename;
+
+                if (JFile::upload($source, $destination)) 
+                {
+
+                } 
+            }
+
             
           
             

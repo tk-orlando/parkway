@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset>
+	<fieldset name="details" label="COM_PARKWAY_BUILDING_DETAILS">
 		<field
 				name="id"
 				type="hidden"
 				/>
-		<field
+		
+                                
+                                
+                <field
 				name="name"
 				type="text"
 				label="COM_PARKWAY_BUILDING_NAME_LABEL"
@@ -27,8 +30,41 @@
 				>
                                 <option value="">Choose One</option>
                 </field>
+        </fieldset>
+        <fieldset name="details" label="COM_PARKWAY_BUILDING_DETAILS">
                 
                 
+                <field
+				name="image"
+				type="file"
+				label="COM_PARKWAY_BUILDING_IMAGE_LABEL"
+				description="COM_PARKWAY_BUILDING_IMAGE_DESC"
+				size=""
+				class="file"
+                                accept="image/*"
+				default=""
+				/>
+                <field
+				name="coordinates"
+				type="textarea"
+				label="COM_PARKWAY_BUILDING_COORDINATES_LABEL"
+				description="COM_PARKWAY_BUILDING_COORDINATES_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+                <field
+				name="published"
+				type="radio"
+				label="COM_PARKWAY_BUILDING_PUBLISHED_LABEL"
+				description="COM_PARKWAY_BUILDING_PUBLISHED_DESC"
+				size="40"
+				class="btn-group btn-group-yesno"
+				default="0"
+				>
+                                <option value="1" >Yes</option>
+                                <option value="0" >No</option>
+                </field>
                 <field
 				name="address1"
 				type="text"

@@ -9,7 +9,7 @@ defined('_JEXEC') or die('Restricted access');
 JHtml::_('behavior.formvalidator');
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_parkway&view=vacancy&layout=edit&id=' . (int) $this->item->id); ?>"
-    method="post" name="adminForm" id="adminForm" class="form-validate">
+    method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
     <div class="form-horizontal">
         <fieldset class="adminform">
             <legend><?php echo JText::_('COM_PARKWAY_VACANCY_DETAILS'); ?></legend>
@@ -21,6 +21,8 @@ JHtml::_('behavior.formvalidator');
                             <div class="controls"><?php echo $field->input; ?></div>
                         </div>
                     <?php endforeach; ?>
+                
+                <?php echo $this->item->pdf ?>
                 </div>
             </div>
         </fieldset>

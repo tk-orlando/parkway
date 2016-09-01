@@ -5,15 +5,15 @@ defined('_JEXEC') or die;
 
 
 
-class ParkwayControllerVacancy extends JControllerAdmin
+class ParkwayControllerFloorplan extends JControllerAdmin
 {
 	
-	protected $text_prefix = 'COM_PARKWAY_VACANCY';
+	protected $text_prefix = 'COM_PARKWAY_FLOORPLAN';
 
 	
 	
 
-	public function getModel($name = 'Vacancy', $prefix = 'ParkwayModel', $config = array())
+	public function getModel($name = 'Floorplan', $prefix = 'ParkwayModel', $config = array())
 	{
 		$model = parent::getModel($name, $prefix, $config);
                 
@@ -23,7 +23,7 @@ class ParkwayControllerVacancy extends JControllerAdmin
         public function add(){
               
             $msg = JText::_( 'COM_PARKWAY_POST_ADDED' );
-            $this->setRedirect( 'index.php?option=com_parkway&view=vacancies', $msg );
+            $this->setRedirect( 'index.php?option=com_parkway&view=floorplans', $msg );
         }
         
         
@@ -33,26 +33,24 @@ class ParkwayControllerVacancy extends JControllerAdmin
             
             //get form variables
              $form = JRequest::getVar( 'jform' );
-             
+            
             $jinput = JFactory::getApplication()->input;
             $files = $jinput->files->get('jform'); 
-            $file= $files['pdf'];
+            $file= $files['image'];
             
              $data =new stdClass();
                 $data->id                   = $form['id'];
-                $data->name                 = $form['name'];
-                $data->property_id          = $form['property_id'];
+                
                 $data->building_id          = $form['building_id'];
-                $data->floor                = $form['floor'];
-                $data->suite                = $form['suite'];
-                $data->available_space      = $form['available_space'];
-                $data->divisible            = $form['divisible'];
-                $data->market_rent          = $form['market_rent'];
-                $data->date_available       = $form['date_available'];
+                $data->floor_level                = $form['floor_level'];
+                $data->title                = $form['title'];
+                
                 if (!empty($file['name'])){
-                    $data->pdf                 = $file['name'];
+                    $data->image                = $file['name'];
                 }
-                 
+                
+                $data->coordinates      = $form['coordinates'];
+                
                 
                 
                 $db = JFactory::getDBO();
@@ -62,42 +60,36 @@ class ParkwayControllerVacancy extends JControllerAdmin
             if ($data->id == 0){
                 
                
-                $db->insertObject( '#__parkway_vacancies', $data, id );
+                $db->insertObject( '#__parkway_floorplans', $data, id );
                 
                  
             }else if ($data->id > 0){
 
-                    $db->updateObject( '#__parkway_vacancies', $data, id );
+                    $db->updateObject( '#__parkway_floorplans', $data, id );
             }
             
             
             
-                
-                
-                
-                
             if (!empty($file['name'])){
-
                 $filename = JFile::makeSafe($file['name']); 
-
-                
 
                 $source = $file['tmp_name'];
                 $destination = JPATH_ROOT . '/media/com_parkway/'.$data->building_id.'/' . $filename;
 
-                
+               
 
 
                 if (JFile::upload($source, $destination)) 
                 {
 
                 }
-                
             }
+            
+          
             
              
              $msg = JText::_( 'COM_PARKWAY_POST_SAVED' );
-            $this->setRedirect( 'index.php?option=com_parkway&view=vacancies', $msg );
+            $this->setRedirect( 'index.php?option=com_parkway&view=floorplans', $msg );
         }
       
         public function cancel(){
@@ -105,12 +97,13 @@ class ParkwayControllerVacancy extends JControllerAdmin
 
             //redirects user back to blog homepage with Cancellation Message
             $msg = JText::_( 'COM_PARKWAY_POST_CANCELLED' );
-            $this->setRedirect( 'index.php?option=com_parkway&view=vacancies' );
+            $this->setRedirect( 'index.php?option=com_parkway&view=floorplans' );
 
         }
        
 
 	
 }
+
 
 

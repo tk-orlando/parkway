@@ -1,9 +1,11 @@
 <?php
+
+
 defined('_JEXEC') or die;
 
 
 
-class parkwayModelVacancies extends JModelList{
+class parkwayModelFloorplans extends JModelList{
     
     
     public function __construct($config = array())
@@ -28,18 +30,7 @@ class parkwayModelVacancies extends JModelList{
             parent::__construct($config);
     }
 
-    /**
-     * Method to auto-populate the model state.
-     *
-     * Note. Calling getState in this method will result in recursion.
-     *
-     * @param   string  $ordering   An optional ordering field.
-     * @param   string  $direction  An optional direction (asc|desc).
-     *
-     * @return  void
-     *
-     * @since   1.6
-     */
+   
     protected function populateState($ordering = 'v.id', $direction = 'asc')
     {
             $app = JFactory::getApplication();
@@ -56,111 +47,12 @@ class parkwayModelVacancies extends JModelList{
             $space = $this->getUserStateFromRequest($this->context . '.filter.space', 'filter_space');
             $this->setState('filter.space', $space);
             
-            $properties = $this->getUserStateFromRequest($this->context . '.filter.properties', 'filter_properties');
-            $this->setState('filter.properties', $properties);
             
-            $buildings = $this->getUserStateFromRequest($this->context . '.filter.buildings', 'filter_buildings');
-            $this->setState('filter.buildings', $buildings);
-            
-            $tag = $this->getUserStateFromRequest($this->context . '.filter.tag', 'filter_tag', '');
-            $this->setState('filter.tag', $tag);
-            
-            /*
-            $access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access', 0, 'int');
-            $this->setState('filter.access', $access);
-
-            $published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
-            $this->setState('filter.published', $published);
-
-            $categoryId = $this->getUserStateFromRequest($this->context . '.filter.category_id', 'filter_category_id');
-            $this->setState('filter.category_id', $categoryId);
-
-            $language = $this->getUserStateFromRequest($this->context . '.filter.language', 'filter_language', '');
-            $this->setState('filter.language', $language);
-            
-            // Force a language.
-            $forcedLanguage = $app->input->get('forcedLanguage');
-
-            if (!empty($forcedLanguage))
-            {
-                    $this->setState('filter.language', $forcedLanguage);
-                    $this->setState('filter.forcedLanguage', $forcedLanguage);
-            }
-
-            $tag = $this->getUserStateFromRequest($this->context . '.filter.tag', 'filter_tag', '');
-            $this->setState('filter.tag', $tag);
-*/
+           
             // List state information.
             parent::populateState($ordering, $direction);
     }
-    /*
-    public function getTable($type = 'Vacancies', $prefix = 'ParkwayTable', $config = array())
-    {
-            return JTable::getInstance($type, $prefix, $config);
-    }
-    public function getForm($data = array(), $loadData = true)
-    {
-            // Get the form.
-            $form = $this->loadForm(
-                    'com_parkway.vacancies',
-                    'vacancies',
-                    array(
-                            'control' => 'jform',
-                            'load_data' => $loadData
-                    )
-            );
-            
-            
-
-            if (empty($form))
-            {
-                    return false;
-            }
-
-            return $form;
-    }
     
-    protected function loadFormData()
-    {
-            // Check the session for previously entered form data.
-            $data = JFactory::getApplication()->getUserState(
-                    'com_parkway.edit.vacancies.data',
-                    array()
-            );
-
-            if (empty($data))
-            {
-                    $data = $this->getItems();
-            }
-
-            return $data;
-    }    
-   
-    public function getItems(){
-        
-        $db = JFactory::getDbo();
-        $query = $db->getQuery(true)
-                //->select('*')
-                //->from('#__parkway_vacancies')
-                ->select('vacancies.id, vacancies.building_id, vacancies.floorplan_id,vacancies.floor, vacancies.suite, buildings.name as building_name')
-                ->from('#__parkway_vacancies as vacancies')
-                ->leftjoin('#__parkway_buildings as buildings ON buildings.id = vacancies.building_id')
-               
-                ;
-        $db->setQuery($query);
-        try
-        {
-            $result = $db->loadObjectList();
-            return $result;
-        }
-        catch (RuntimeException $e)
-        {
-            JError::raiseWarning(500, $e->getMessage());
-            
-           
-        }
-    }
-    */
     
     protected function getStoreId($id = '')
     {
@@ -184,15 +76,15 @@ class parkwayModelVacancies extends JModelList{
 			$db->quoteName(
 				explode(', ', $this->getState(
 					'list.select',
-					'v.id, v.building_id, v.floor, v.suite, v.available_space'
+					'v.id, v.building_id, v.floor_level, v.title, v.image, b.name'
 					)
 				)
 			)
 		);
 		
-		$query->from($db->quoteName('#__parkway_vacancies', 'v'));
+		$query->from($db->quoteName('#__parkway_floorplans', 'v'));
                 
-                // Join over the users for the building name.
+                // Join over the building name.
 		
                 $query->select($db->quoteName('b.name', 'building_name'))
 			->join(
@@ -272,4 +164,6 @@ class parkwayModelVacancies extends JModelList{
     
     
 }
+
+
 

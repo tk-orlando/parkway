@@ -8,7 +8,7 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_parkway&view=vacancy&layout=add&id=' . (int) $this->item->id); ?>"
-    method="post" name="adminForm" id="adminForm" class="form-validate">
+    method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
     <div class="form-horizontal">
         <fieldset class="adminform">
             <legend><?php echo JText::_('COM_PARKWAY_VACANCY_DETAILS'); ?></legend>
