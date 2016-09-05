@@ -1,11 +1,9 @@
 <?php
-
-
 defined('_JEXEC') or die;
 
 
 
-class parkwayModelFloorplans extends JModelList{
+class parkwayModelBuildings extends JModelList{
     
     
     public function __construct($config = array())
@@ -13,12 +11,9 @@ class parkwayModelFloorplans extends JModelList{
             if (empty($config['filter_fields']))
             {
                     $config['filter_fields'] = array(
-                            'id', 'f.id',
-                            'title', 'f.title',
-                            'building_id','f.building_id',
-                            'property_id','b.property_id',
-                            'title','f.title',
-                         
+                            'id', 'b.id',
+                            'property_id', 'b.property_id', 
+                            
                             
                     );
 
@@ -33,8 +28,19 @@ class parkwayModelFloorplans extends JModelList{
             parent::__construct($config);
     }
 
-   
-    protected function populateState($ordering = 'f.id', $direction = 'asc')
+    /**
+     * Method to auto-populate the model state.
+     *
+     * Note. Calling getState in this method will result in recursion.
+     *
+     * @param   string  $ordering   An optional ordering field.
+     * @param   string  $direction  An optional direction (asc|desc).
+     *
+     * @return  void
+     *
+     * @since   1.6
+     */
+    protected function populateState($ordering = 'b.id', $direction = 'asc')
     {
             $app = JFactory::getApplication();
 
@@ -47,14 +53,14 @@ class parkwayModelFloorplans extends JModelList{
             $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
             $this->setState('filter.search', $search);
             
+           
+            
             $property = $this->getUserStateFromRequest($this->context . '.filter.property', 'filter_property');
             $this->setState('filter.property', $property);
             
-            $building = $this->getUserStateFromRequest($this->context . '.filter.building', 'filter_building');
-            $this->setState('filter.building', $building);
             
             
-           
+            
             // List state information.
             parent::populateState($ordering, $direction);
     }
@@ -65,7 +71,7 @@ class parkwayModelFloorplans extends JModelList{
             // Compile the store id.
             $id .= ':' . $this->getState('filter.search');
             $id .= ':' . $this->getState('filter.property');
-            $id .= ':' . $this->getState('filter.building');
+            
 
             return parent::getStoreId($id);
     }
@@ -82,52 +88,34 @@ class parkwayModelFloorplans extends JModelList{
 		$query->select(
 			$db->quoteName(
 				explode(', ', $this->getState(
-					'list.select',
-					'f.id, f.title, f.building_id, b.property_id, f.floor_level, f.image, b.name'
+					'list.select', 'b.id, b.name, b.address1, b.address2, b.city, b.state, b.zip, b.year_built, b.typical_floor_size, b.image'
 					)
 				)
 			)
 		);
 		
-		$query->from($db->quoteName('#__parkway_floorplans', 'f'));
-                
-                // Join over the building name.
-		
-                $query->select($db->quoteName('b.name', 'building_name'))
-			->join(
-				'LEFT',
-				$db->quoteName('#__parkway_buildings', 'b') . ' ON ' . $db->quoteName('b.id') . ' = ' . $db->quoteName('f.building_id')
-			);
-                
-                               
-                //Filter by property.
-                $building = $this->getState('filter.property');
+		$query->from($db->quoteName('#__parkway_buildings', 'b'));
                 
                 
-                
-                if (!empty( $building )){
-                    
-                    $query->where(
-					'(' . $db->quoteName('b.property_id') . ' = ' . intval($building ). ')'
-				);
-                    
-                }                
+                 
 
-                //Filter by building.
-                $building = $this->getState('filter.building');
+
+                //Filter by properties 
+                $property = $this->getState('filter.property');
                 
-                
-                
-                if (!empty( $building )){
+                if (!empty( $property )){
                     
                     $query->where(
-					'(' . $db->quoteName('f.building_id') . ' = ' . intval($building ). ')'
+					'(' . $db->quoteName('b.property_id') . ' = ' . intval($property ). ')'
 				);
                     
                 }
+                                                   
+                
+
                 
                 
-                // Filter search by title.
+                // Filter by search in name.
 		$search = $this->getState('filter.search');
 
 		if (!empty($search))
@@ -147,7 +135,7 @@ class parkwayModelFloorplans extends JModelList{
 			{
 				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
 				$query->where(
-					'(' . $db->quoteName('f.title') .' LIKE '.  $search .  ')'
+					'(' . $db->quoteName('b.name') . ' LIKE ' . $search . ' OR ' . $db->quoteName('b.address1') . ' LIKE ' . $search . ')'
 				);
 			}
 		}
@@ -162,6 +150,4 @@ class parkwayModelFloorplans extends JModelList{
     
     
 }
-
-
 

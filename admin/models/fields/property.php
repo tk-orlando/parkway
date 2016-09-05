@@ -5,9 +5,9 @@ defined('_JEXEC') or die('Restricted access');
  
 jimport('joomla.form.formfield');
  
-class JFormFieldBuilding extends JFormField {
+class JFormFieldProperty extends JFormField {
  
-	protected $type = 'Building';
+	protected $type = 'Property';
  
 	// getLabel() left out
  
@@ -16,7 +16,7 @@ class JFormFieldBuilding extends JFormField {
             //get id of vacancy
             //get all floor and suite plans based on the building
 		
-            return '{Building Placeholder}';
+            return '{Property Placeholder}';
 	}
 }
 

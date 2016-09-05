@@ -20,7 +20,7 @@
                 
                 <field
 				name="floorplan_id"
-				type="sql"
+				type="floorplan"
 				query="SELECT id, title as floorplan_title FROM #__parkway_floorplans" key_field="id" value_field="floorplan_title"
                                 label="COM_PARKWAY_SUITEPLAN_FLOORPLANID_LABEL"
 				description="COM_PARKWAY_SUITEPLAN_FLOORPLANID_DESC"

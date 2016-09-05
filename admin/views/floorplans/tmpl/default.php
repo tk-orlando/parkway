@@ -3,7 +3,22 @@
 
 defined('_JEXEC') or die;
 
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
+JHtml::_('bootstrap.tooltip');
+JHtml::_('behavior.multiselect');
+JHtml::_('behavior.formvalidator');
+JHtml::_('formbehavior.chosen', 'select');
+
+$app       = JFactory::getApplication();
+$user      = JFactory::getUser();
+$userId    = $user->get('id');
+$listOrder = $this->escape($this->state->get('list.ordering'));
+$listDirn  = $this->escape($this->state->get('list.direction'));
+$archived  = $this->state->get('filter.published') == 2 ? true : false;
+$trashed   = $this->state->get('filter.published') == -2 ? true : false;
+$canOrder  = $user->authorise('core.edit.state', 'com_parkway.floorplans');
+$saveOrder = $listOrder == 'a.ordering';
 
 $this->items = $this->get('Items');
 
@@ -15,11 +30,11 @@ $this->items = $this->get('Items');
 <div id="j-main-container" class="span10">
 
 
-<form action="<?php echo JRoute::_('index.php?option=com_parkway&view=floorplans&id=' . (int) $this->item->id); ?>"
+<form action="<?php echo JRoute::_('index.php?option=com_parkway&view=floorplans&id=' . (int) $this->items->id); ?>"
       method="post" name="adminForm" id="adminForm">
 
     
-
+    <?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?> 
 
 
     <table class="table table-striped" >

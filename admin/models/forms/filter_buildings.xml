@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	
+    <fields name="filter">
+		
+		<field
+			name="search"
+			type="text"
+			label="COM_PARKWAY_ITEMS_SEARCH_FILTER"
+			hint="JSEARCH_FILTER"
+			class="js-stools-search-string"
+		/>
+                <field
+			name="property"
+			type="sql"
+			label="JOPTION_FILTER_PROPERTY"
+                        query="SELECT id, name FROM #__parkway_properties" key_field="id" value_field="name"
+			extension="com_parkway"
+			description="JOPTION_FILTER_PROPERTY_DESC"
+			onchange="this.form.submit();"
+			published="0,1,2"
+			>
+			<option value="">JOPTION_SELECT_PROPERTY</option>
+		</field>
+                
+    </fields>
+</form>

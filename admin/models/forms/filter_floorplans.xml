@@ -2,9 +2,14 @@
 <form>
 	
     <fields name="filter">
-		
-		
-                <field
+		<field
+			name="search"
+			type="text"
+			label="COM_PARKWAY_ITEMS_SEARCH_FILTER"
+			hint="JSEARCH_FILTER"
+			class="js-stools-search-string"
+		/>
+		<field
 			name="property"
 			type="sql"
 			label="JOPTION_FILTER_PROPERTY"
@@ -16,7 +21,8 @@
 			>
 			<option value="">JOPTION_SELECT_PROPERTY</option>
 		</field>
-		<field
+                
+                <field
 			name="building"
 			type="sql"
 			label="JOPTION_FILTER_BUILDING"
@@ -24,43 +30,10 @@
 			extension="com_parkway"
 			description="JOPTION_FILTER_BUILDING_DESC"
 			onchange="this.form.submit();"
-			
+			published="0,1,2"
 			>
 			<option value="">JOPTION_SELECT_BUILDING</option>
 		</field>
-		
-		
-		<field
-			name="tag"
-			type="tag"
-			mode="nested"
-			label="JOPTION_FILTER_TAG"
-			description="JOPTION_FILTER_TAG_DESC"
-			onchange="this.form.submit();"
-		>
-			<option value="">JOPTION_SELECT_TAG</option>
-		</field>
-	
-		<field
-			name="search"
-			type="text"
-			label="COM_PARKWAY_ITEMS_SEARCH_FILTER"
-			hint="JSEARCH_FILTER"
-			class="js-stools-search-string"
-		/>
-                <field
-			name="space"
-			type="space"
-			label="COM_PARKWAY_ITEMS_TAG_FILTER"
-			hint="JSEARCH_FILTER"
-			class="js-stools-search-string"
-		/>
                 
-                
-		
-		
-            
-	</fields>
-	
-	
+    </fields>
 </form>

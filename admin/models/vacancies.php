@@ -12,8 +12,9 @@ class parkwayModelVacancies extends JModelList{
             {
                     $config['filter_fields'] = array(
                             'id', 'v.id',
-                            'v.floor', 'b.name',
-                            'v.suite', 
+                            //'floor', 'v.floor', 
+                            //'building_name','b.name',
+                            'suite', 'v.suite', 
                             
                     );
 
@@ -56,11 +57,11 @@ class parkwayModelVacancies extends JModelList{
             $space = $this->getUserStateFromRequest($this->context . '.filter.space', 'filter_space');
             $this->setState('filter.space', $space);
             
-            $properties = $this->getUserStateFromRequest($this->context . '.filter.properties', 'filter_properties');
-            $this->setState('filter.properties', $properties);
+            $property = $this->getUserStateFromRequest($this->context . '.filter.property', 'filter_property');
+            $this->setState('filter.property', $property);
             
-            $buildings = $this->getUserStateFromRequest($this->context . '.filter.buildings', 'filter_buildings');
-            $this->setState('filter.buildings', $buildings);
+            $building = $this->getUserStateFromRequest($this->context . '.filter.building', 'filter_building');
+            $this->setState('filter.building', $building);
             
             $tag = $this->getUserStateFromRequest($this->context . '.filter.tag', 'filter_tag', '');
             $this->setState('filter.tag', $tag);
@@ -166,7 +167,9 @@ class parkwayModelVacancies extends JModelList{
     {
             // Compile the store id.
             $id .= ':' . $this->getState('filter.search');
-            
+            $id .= ':' . $this->getState('filter.property');
+            $id .= ':' . $this->getState('filter.building');
+            $id .= ':' . $this->getState('filter.tag');
 
             return parent::getStoreId($id);
     }
@@ -183,8 +186,7 @@ class parkwayModelVacancies extends JModelList{
 		$query->select(
 			$db->quoteName(
 				explode(', ', $this->getState(
-					'list.select',
-					'v.id, v.building_id, v.floor, v.suite, v.available_space'
+					'list.select', 'v.id, v.building_id, b.property_id, v.floor, v.suite, v.available_space, v.pdf'
 					)
 				)
 			)
@@ -192,13 +194,40 @@ class parkwayModelVacancies extends JModelList{
 		
 		$query->from($db->quoteName('#__parkway_vacancies', 'v'));
                 
-                // Join over the users for the building name.
+                // Join over the building name and property id from the buildings table.
 		
-                $query->select($db->quoteName('b.name', 'building_name'))
+                $query->select($db->quoteName('b.name', 'building_name'), $db->quoteName('b.property_id','property_id') )
 			->join(
 				'LEFT',
 				$db->quoteName('#__parkway_buildings', 'b') . ' ON ' . $db->quoteName('b.id') . ' = ' . $db->quoteName('v.building_id')
 			);
+                 
+
+
+                //Filter by properties 
+                $property = $this->getState('filter.property');
+                
+                if (!empty( $property )){
+                    
+                    $query->where(
+					'(' . $db->quoteName('b.property_id') . ' = ' . intval($property ). ')'
+				);
+                    
+                }
+                                                   
+                //Filter by Building
+                $building = $this->getState('filter.building');
+                
+                
+                
+                if (!empty( $building )){
+                    
+                    $query->where(
+					'(' . $db->quoteName('v.building_id') . ' = ' . intval($building ). ')'
+				);
+                    
+                }
+
                 //Filter by available space.
                 $space = $this->getState('filter.space');
                 

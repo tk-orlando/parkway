@@ -18,11 +18,6 @@ $trashed   = $this->state->get('filter.published') == -2 ? true : false;
 $canOrder  = $user->authorise('core.edit.state', 'com_parkway.vacancies');
 $saveOrder = $listOrder == 'a.ordering';
 
-
-
-
-
-
 $this->items = $this->get('Items');
 
 
@@ -77,7 +72,11 @@ $this->items = $this->get('Items');
                 <td><div ><?php echo $value->floor ?></div></td>
                 <td><div ><?php echo $value->available_space ?></div></td>
                 <td><div ><?php echo $value->suite ?></div></td>
-                <td><div ><?php echo $value->pdf ?></div></td>
+                <td><div ><?php if (!empty($value->pdf)): ?>
+                        <img width="20px" height="10px" src="/administrator/components/com_parkway/images/adobe-27964_640.png">
+                        
+                        <?php endif; ?>
+                    </div></td>
                 <td><?php echo $value->id ?></td>
             </tr>
         <?php endforeach; ?>
