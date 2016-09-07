@@ -5,9 +5,9 @@
 	<creationDate>August 2016</creationDate>
 	<copyright>(C) 2016 TKOrlando. All rights reserved.</copyright>
 	<license>see LICENSE.txt</license>
-	<authorEmail>support@tkorlando.com</authorEmail>
+	<authorEmail>support@tko-orlando.com</authorEmail>
 	<authorUrl>www.tkorlando.com</authorUrl>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<description>Parkway Online Property Listings.</description>
         
         <!-- Runs on install/uninstall/update; New in 1.6 -->
