@@ -2,11 +2,13 @@
 
 $mycount = 0;
 
+$propertyName = $this->getPropertyName();
+
 ?>
 
 <article class="uk-article">
 
-<h1 class="uk-article-title"> Find Your Space </h1>
+<h1 class="uk-article-title"> Building List </h1>
 
 <?php foreach ($this->items as $key => $value): ?>
 
@@ -35,8 +37,8 @@ $mycount = 0;
 				<table class="uk-table results-table">
 					<tr>
 						<td colspan="2">
-							<h4> <?php echo $value->property_name ?> </h4>
-							<h5> <?php echo $value->building_name ?> </h5>
+							<h4> <?php echo $propertyName ?> </h4>
+							<h5> <?php echo $value->building_name?> </h5>
 							<p>	
 								<?php echo $value->address1 ?>
 								
@@ -54,32 +56,31 @@ $mycount = 0;
 							</p>
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>Rentable Sq. Ft.</td>
-						<td class="uk-text-bold">  
-							<!-- var rentableSqFt -->
-							128,400
+						<td class="uk-text-bold">
+							...
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>Number of Floors</td>
 						<td class="uk-text-bold">
 							<!-- var numFloors -->
-							10
+							<?php echo $value->number_of_floors ?>
 						</td>
 					</tr>
 					<tr>
 						<td>Available Sq. Ft.</td>
 						<td class="uk-text-bold">
 							<!-- var availableSqFt -->
-							14,000
+							need input
 						</td>
 					</tr>
 					<tr>
 						<td>Typical Floor Size</td>
 						<td class="uk-text-bold">
 							<!-- var typicalFloorSize -->
-							<?php echo $value->typical_floor_size?>
+							<?php echo $value->typical_floor_size ?>
 						</td>
 					</tr>
 					<tr>
@@ -90,7 +91,7 @@ $mycount = 0;
 						</td>
 					</tr>
 				</table>
-        <p class="results-links"><a href="<?php echo "index.php?option=com_parkway&view=vacancies&layout=bybuilding&filter_building=$value->id" ; ?>">View Listings</a><br><a href="#">Interactive Floor Plan</a></p>
+        <p class="results-links"><a href="<?php echo JURI::base()."index.php?option=com_parkway&view=vacancies&layout=bybuilding&filter_building=$value->id&Itemid=604" ?>">View Listings</a><br><a href="#">Interactive Floor Plan</a></p>
 			</div>
 		</div>
 	</div>
@@ -106,4 +107,8 @@ $mycount = 0;
 <?php endforeach; ?>
 
 </article>
+
+
+
+
 

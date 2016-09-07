@@ -85,17 +85,24 @@ class parkwayModelBuildings extends JModelList{
 		$user = JFactory::getUser();
 
 		// Select the required fields from the table.
+                $query->select($db->quoteName('b.name', 'building_name'));
 		$query->select(
 			$db->quoteName(
 				explode(', ', $this->getState(
-					'list.select', 'b.id, b.name, b.address1, b.address2, b.city, b.state, b.zip, b.year_built, b.typical_floor_size, b.image'
+					'list.select', 'b.id, b.name, b.address1, b.address2, b.city, b.state, b.zip, b.year_built, b.typical_floor_size, b.image, b.number_of_floors, p.name'
 					)
 				)
 			)
 		);
 		
 		$query->from($db->quoteName('#__parkway_buildings', 'b'));
-                
+                // Join over the property name.
+		
+                $query->select($db->quoteName('p.name', 'property_name'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__parkway_properties', 'p') . ' ON ' . $db->quoteName('p.id') . ' = ' . $db->quoteName('b.property_id')
+			);
                 
                  
 

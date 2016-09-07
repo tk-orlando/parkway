@@ -201,6 +201,10 @@ class parkwayModelVacancies extends JModelList{
 				'LEFT',
 				$db->quoteName('#__parkway_buildings', 'b') . ' ON ' . $db->quoteName('b.id') . ' = ' . $db->quoteName('v.building_id')
 			);
+			
+		
+			
+		
                  
 
 

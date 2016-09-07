@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<metadata>
+	<layout title="com_parkway_vacancies_view_byprop_title" option="com_parkway_vacancies_view_byprop_option">
+		<help
+			key = "JHELP_MENUS_MENU_ITEM_PARKWAY_FEATURED"
+		/>
+		<message>
+			<![CDATA[COM_PARKWAY_VACANCIES_VIEW_BYPROP_DESC]]>
+		</message>
+	</layout>
+        <!-- Add fields to the request variables for the layout. -->
+	<fields name="request">
+		<fieldset name="request"
+		>
+                    <field
+			name="filter_property"
+			type="sql"
+			label="JOPTION_FILTER_PROPERTY"
+                        query="SELECT id, name FROM #__parkway_properties" key_field="id" value_field="name"
+			extension="com_parkway"
+			description="JOPTION_FILTER_PROPERTY_DESC"
+			
+			published="0,1,2"
+			>
+			<option value="">JOPTION_SELECT_PROPERTY</option>
+                    </field>
+		</fieldset>
+	</fields>
+
+
+
+
+	
+</metadata>
+

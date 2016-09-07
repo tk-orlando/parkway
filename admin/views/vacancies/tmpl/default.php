@@ -43,15 +43,17 @@ $this->items = $this->get('Items');
                 <th>
                     Building
                 </th>
-                
+                <th>
+										Property
+								</th>
                 <th>
                     Floor
                 </th>
                 <th>
-                    Available Space (Sq.Ft.)
+                    Suite
                 </th>
                 <th>
-                    Suite
+                    Available Space (Sq.Ft.)
                 </th>
                 <th>
                     PDF
@@ -68,10 +70,10 @@ $this->items = $this->get('Items');
                 
                 
                 <td><div ><a href="index.php?option=com_parkway&view=vacancy&layout=edit&id=<?php echo $value->id  ?>"><?php echo $value->building_name ?></a></div></td>
-                
+                <td><div><?php echo $value->property_name ?></div></td>
                 <td><div ><?php echo $value->floor ?></div></td>
-                <td><div ><?php echo $value->available_space ?></div></td>
                 <td><div ><?php echo $value->suite ?></div></td>
+                <td><div ><?php echo $value->available_space ?></div></td>
                 <td><div ><?php if (!empty($value->pdf)): ?>
                         <img width="20px" height="10px" src="/administrator/components/com_parkway/images/adobe-27964_640.png">
                         

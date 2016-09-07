@@ -60,7 +60,31 @@ class parkwayViewBuildings extends JViewLegacy{
 
 		return parent::display($tpl);
 	}
+        
+     public function getPropertyName(){
+         
+         $jinput = JFactory::getApplication()->input;
+         $propertyID = $jinput->get('filter_property');
+         
+         
+         
+         if (isset($propertyID) && !empty($propertyID)){
+           
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
 
+            $query->select('name')  ; 
+            $query->from('#__parkway_properties');
+            $query->where("id = $propertyID");    
+            
+            $db->setQuery($query);
+            $result = $db->loadResult();   
+           
+           return $result;
+         }
+         
+         return ;
+     }   
 	
 	
 

@@ -3,7 +3,7 @@ defined('_JEXEC') or die;
 
 
 
-class parkwayModelBuildings extends JModelList{
+class parkwayModelVacancies extends JModelList{
     
     
     public function __construct($config = array())
@@ -11,9 +11,10 @@ class parkwayModelBuildings extends JModelList{
             if (empty($config['filter_fields']))
             {
                     $config['filter_fields'] = array(
-                            'id', 'b.id',
-                            'property_id', 'b.property_id', 
-                            
+                            'id', 'v.id',
+                            //'floor', 'v.floor', 
+                            //'building_name','b.name',
+                            'suite', 'v.suite', 
                             
                     );
 
@@ -40,7 +41,7 @@ class parkwayModelBuildings extends JModelList{
      *
      * @since   1.6
      */
-    protected function populateState($ordering = 'b.id', $direction = 'asc')
+    protected function populateState($ordering = 'v.id', $direction = 'asc')
     {
             $app = JFactory::getApplication();
 
@@ -53,14 +54,20 @@ class parkwayModelBuildings extends JModelList{
             $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
             $this->setState('filter.search', $search);
             
-           
+            $space = $this->getUserStateFromRequest($this->context . '.filter.space', 'filter_space');
+            $this->setState('filter.space', $space);
             
             $property = $this->getUserStateFromRequest($this->context . '.filter.property', 'filter_property');
             $this->setState('filter.property', $property);
             
+            $building = $this->getUserStateFromRequest($this->context . '.filter.building', 'filter_building');
+            $this->setState('filter.building', $building);
             
+            $tag = $this->getUserStateFromRequest($this->context . '.filter.tag', 'filter_tag', '');
+            $this->setState('filter.tag', $tag);
             
-            
+           
+
             // List state information.
             parent::populateState($ordering, $direction);
     }
@@ -71,7 +78,8 @@ class parkwayModelBuildings extends JModelList{
             // Compile the store id.
             $id .= ':' . $this->getState('filter.search');
             $id .= ':' . $this->getState('filter.property');
-            
+            $id .= ':' . $this->getState('filter.building');
+            $id .= ':' . $this->getState('filter.tag');
 
             return parent::getStoreId($id);
     }
@@ -85,25 +93,23 @@ class parkwayModelBuildings extends JModelList{
 		$user = JFactory::getUser();
 
 		// Select the required fields from the table.
-		$query->select($db->quoteName('b.name', 'building_name'));
-                $query->select(
+		$query->select(
 			$db->quoteName(
 				explode(', ', $this->getState(
-					'list.select', 'b.id, b.name, b.address1, b.address2, b.city, b.state, b.zip, b.year_built, b.typical_floor_size, b.number_of_floors, p.name'
+					'list.select', 'v.id, v.building_id, b.property_id, v.floor, v.suite, v.available_space, v.divisible, v.market_rent, v.date_available, v.pdf'
 					)
 				)
 			)
 		);
-                
-                
-		$query->from($db->quoteName('#__parkway_buildings', 'b'));
-                
-                 // Join over the property name.
 		
-                $query->select($db->quoteName('p.name', 'property_name'))
+		$query->from($db->quoteName('#__parkway_vacancies', 'v'));
+                
+                // Join over the building name and property id from the buildings table.
+		
+                $query->select($db->quoteName('b.name', 'building_name'), $db->quoteName('b.property_id','property_id') )
 			->join(
 				'LEFT',
-				$db->quoteName('#__parkway_properties', 'p') . ' ON ' . $db->quoteName('p.id') . ' = ' . $db->quoteName('b.property_id')
+				$db->quoteName('#__parkway_buildings', 'b') . ' ON ' . $db->quoteName('b.id') . ' = ' . $db->quoteName('v.building_id')
 			);
                  
 
@@ -119,8 +125,55 @@ class parkwayModelBuildings extends JModelList{
                     
                 }
                                                    
+                //Filter by Building
+                $building = $this->getState('filter.building');
                 
+                
+                
+                if (!empty( $building )){
+                    
+                    $query->where(
+					'(' . $db->quoteName('v.building_id') . ' = ' . intval($building ). ')'
+				);
+                    
+                }
 
+                //Filter by available space.
+                $space = $this->getState('filter.space');
+                
+              
+                
+                if (!empty($space['min']) && !empty($space['max']))
+		{
+                            
+                    
+				$query->where(
+					'(' . $db->quoteName('v.available_space') . ' BETWEEN ' . intval($space['min'] ) . ' AND ' . intval($space['max'] ). ')'
+				);
+                    
+                    
+                    
+                }else if (empty($space['min']) && !empty($space['max'])){
+                    
+                    
+                    
+                    
+				$query->where(
+					'(' . $db->quoteName('v.available_space') . ' BETWEEN 0 AND ' . intval($space['max'] ). ')'
+				);
+                               
+                                
+                    
+                }else if (!empty($space['min']) && empty($space['max'])){
+                    
+                   
+                    
+				$query->where(
+					'(' . $db->quoteName('v.available_space') . ' BETWEEN ' . intval($space['min']) . ' AND 999999999 )'
+				);
+                                 
+                    
+                }
                 
                 
                 // Filter by search in name.
@@ -143,7 +196,7 @@ class parkwayModelBuildings extends JModelList{
 			{
 				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
 				$query->where(
-					'(' . $db->quoteName('b.name') . ' LIKE ' . $search . ' OR ' . $db->quoteName('b.address1') . ' LIKE ' . $search . ')'
+					'(' . $db->quoteName('b.name') . ' LIKE ' . $search . ' OR ' . $db->quoteName('v.keywords') . ' LIKE ' . $search . ')'
 				);
 			}
 		}
@@ -158,4 +211,6 @@ class parkwayModelBuildings extends JModelList{
     
     
 }
+
+
 

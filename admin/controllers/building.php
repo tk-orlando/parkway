@@ -55,7 +55,8 @@ class ParkwayControllerBuilding extends JControllerAdmin
                 $data->city                 = $form['city'];
                 $data->state                = $form['state'];
                 $data->zip                  = $form['zip'];
-                $data->floor_size           = $form['floor_size'];
+                //$data->floor_size           = $form['floor_size'];
+								$data->number_of_floors           = $form['number_of_floors'];
                 $data->year_built           = $form['year_built'];
                 $data->typical_floor_size   = $form['typical_floor_size'];
                 $data->parking_ratio        = $form['parking_ratio'];

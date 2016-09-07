@@ -166,10 +166,10 @@
 				default=""
 				/>
                 <field
-				name="floor_size"
+				name="number_of_floors"
 				type="number"
-				label="COM_PARKWAY_BUILDING_FLOORSIZE_LABEL"
-				description="COM_PARKWAY_BUILDING_FLOORSIZE_DESC"
+				label="COM_PARKWAY_BUILDING_NUMFLOORS_LABEL"
+				description="COM_PARKWAY_BUILDING_NUMFLOORS_DESC"
 				size="40"
 				class="inputbox validate-numeric required"
 				default=""

@@ -40,9 +40,11 @@ $this->items = $this->get('Items');
         <tr>
             <th></th>
             <th>Name</th>
+						<th>Property</th>
             <th>Address</th>
+						<th>Number of Floors</th>
             <th>Year Built</th>
-            <th>Typical Floor Size</th>
+            <th>Typical Floor Size (Sq.Ft.)</th>
             <th>ID</th>
             
         </tr>
@@ -51,9 +53,11 @@ $this->items = $this->get('Items');
         <?php  foreach ($this->items as $key => $value): ?>
             <tr>
                 <td><input id="cb0" name="cid[]" value="<?php echo $value->id ?>" onclick="Joomla.isChecked(this.checked);" type="checkbox"></td>
-                <td><a href="index.php?option=com_parkway&view=building&layout=edit&id=<?php echo $value->id  ?>"><?php echo $value->name ?></a></td>
+                <td><a href="index.php?option=com_parkway&view=building&layout=edit&id=<?php echo $value->id  ?>"><?php echo $value->building_name ?></a></td>
+								<td><?php echo $value->property_name ?></td>
                 <td><?php echo $value->address1 ?> <?php echo $value->address2 ?><?php echo $value->city ?> <?php echo $value->state ?> <?php echo $value->zip ?></td>
-                <td><?php echo $value->year_built ?></td>
+                <td><?php echo $value->number_of_floors ?></td>
+								<td><?php echo $value->year_built ?></td>
                 <td><?php echo $value->typical_floor_size ?></td>
                 <td><?php echo $value->id ?></td>
             </tr>

@@ -7,7 +7,7 @@
 	<license>see LICENSE.txt</license>
 	<authorEmail>support@tkorlando.com</authorEmail>
 	<authorUrl>www.tkorlando.com</authorUrl>
-	<version>0.0.1</version>
+	<version>1.0.5</version>
 	<description>Parkway Online Property Listings.</description>
         
         <!-- Runs on install/uninstall/update; New in 1.6 -->
@@ -41,15 +41,21 @@
 	</languages>
 
 	<administration>
-		<menu>com_parkway</menu>
+		<menu>Parkway Properties</menu>
 		<submenu>
 			<!--
 				Note that all & must be escaped to &amp; for the file to be valid
 				XML and be parsed by the installer
 			-->
 			
-			<menu link="option=com_config&amp;view=component&amp;component=com_parkway" view="categories" img="class:parkway" alt="parkway/Options">Options</menu>
-		</submenu>
+			<menu link="option=com_parkway&amp;view=properties" view="Properties" img="class:parkway" alt="parkway/Properties">Properties</menu>
+                        <menu link="option=com_parkway&amp;view=buildings" view="Buildings" img="class:parkway" alt="parkway/Buildings">Buildings</menu>
+                        <menu link="option=com_parkway&amp;view=floorplans" view="Floorplans" img="class:parkway" alt="parkway/FloorPlans">Floor Plans</menu>
+                        <menu link="option=com_parkway&amp;view=floorplans" view="Floorplans" img="class:parkway" alt="parkway/FloorPlans">Suite Plans</menu>
+                        <menu link="option=com_parkway&amp;view=vacancies" view="Vacancies" img="class:parkway" alt="parkway/Vacancies">Vacancies</menu>
+                       
+                        
+                </submenu>
                 
 		<files folder="admin">
 			<filename>access.xml</filename>
