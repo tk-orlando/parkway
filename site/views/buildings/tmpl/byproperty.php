@@ -1,14 +1,30 @@
 <?php
+require_once JPATH_SITE . '/components/com_content/helpers/route.php';
 
 $mycount = 0;
 
+$buildingcount = 0;
+
 $propertyName = $this->getPropertyName();
+
+$jinput = JFactory::getApplication()->input;
+$Itemid = $jinput->getInt('Itemid');
+
+foreach ($this->items as $key => $value):
+
+ $buildingcount++;
+
+endforeach;
 
 ?>
 
 <article class="uk-article">
 
-<h1 class="uk-article-title"> Building List </h1>
+<?php if( $buildingcount > 1 ): ?>
+
+	<?php echo '<h1 class="uk-article-title"> Building List </h1>' ?>
+	
+<?php endif; ?>
 
 <?php foreach ($this->items as $key => $value): ?>
 
@@ -18,13 +34,13 @@ $propertyName = $this->getPropertyName();
 
 <?php endif; ?>
 
-	<div class="uk-width-medium-1-2">
+	<div class="uk-width-small-1-2">
 		<div class="uk-grid">
 			<div class="uk-width-medium-1-2">
 			
     <?php if( isset($value->image) && !empty($value->image) ): ?>
 		
-					<img class="results-thumb" src="<?php echo '/media/com_parkway/'.$value->id.'/' . $value->image ?>" alt="<?php echo $value->image ?>">
+					<img class="results-thumb" src="<?php echo '/media/com_parkway/' . $value->image ?>" alt="<?php echo $value->image ?>">
 					
 		<?php elseif( empty($value->image) ): ?>
 		
@@ -34,12 +50,12 @@ $propertyName = $this->getPropertyName();
 		
 			</div>
 			<div class="uk-width-medium-1-2 uk-margin-bottom">
-				<table class="uk-table results-table">
+				<table class="uk-table profile-table uk-margin-small-bottom">
 					<tr>
 						<td colspan="2">
 							<h4> <?php echo $propertyName ?> </h4>
 							<h5> <?php echo $value->building_name?> </h5>
-							<p>	
+							<p class="uk-margin-bottom-remove">	
 								<?php echo $value->address1 ?>
 								
 								<?php if( empty($value->address2) ): ?>
@@ -70,28 +86,50 @@ $propertyName = $this->getPropertyName();
 						</td>
 					</tr>
 					<tr>
-						<td>Available Sq. Ft.</td>
+						<td>Building Size</td>
 						<td class="uk-text-bold">
 							<!-- var availableSqFt -->
-							need input
+							<?php echo number_format($value->building_size, 0, '.', ',') ?>
 						</td>
 					</tr>
 					<tr>
 						<td>Typical Floor Size</td>
 						<td class="uk-text-bold">
 							<!-- var typicalFloorSize -->
-							<?php echo $value->typical_floor_size ?>
+							<?php echo number_format($value->typical_floor_size, 0, '.', ',') ?>
 						</td>
 					</tr>
 					<tr>
-						<td>Year Built</td>
+						<td>Parking</td>
 						<td class="uk-text-bold">
 							<!-- var yearBuilt -->
-							<?php echo $value->year_built?>
+							<?php echo $value->parking_ratio ?>
 						</td>
 					</tr>
 				</table>
-        <p class="results-links"><a href="<?php echo JURI::base()."index.php?option=com_parkway&view=vacancies&layout=bybuilding&filter_building=$value->id&Itemid=604" ?>">View Listings</a><br><a href="#">Interactive Floor Plan</a></p>
+        <p class="results-links">
+				<a class="uk-button" href="<?php echo JURI::base()."index.php?option=com_parkway&view=vacancies&layout=bybuilding&filter_building=$value->id&Itemid=$Itemid" ?>">View Listings</a><br>
+				</p>
+				<p class="results-links ie">
+				<a class="uk-button" href="<?php echo JURI::base()."index.php?option=com_parkway&view=floorplan&building=$value->id&Itemid=$Itemid" ?>">View Floor Plan</a>
+				</p>
+				
+				<?php if( isset($value->fact_sheet) && !empty($value->fact_sheet) ): ?>
+					
+						<a class="uk-icon-file-pdf-o uk-margin-small-bottom" href="<?php echo '/media/com_parkway/' . $value->fact_sheet ?>"><span class="uk-h5">Fact Sheet</span></a> <br />
+				
+				<?php endif; ?>
+				
+				<?php if( isset($value->leed_cert) && !empty($value->leed_cert) ): ?>
+				
+					<?php if( $value->leed_cert == 1 ): ?>
+					
+						<img src="/components/com_parkway/images/leed.png" alt="LEED Certified" />
+					
+					<?php endif; ?>
+				
+				<?php endif; ?>
+				
 			</div>
 		</div>
 	</div>

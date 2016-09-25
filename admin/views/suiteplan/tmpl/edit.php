@@ -4,6 +4,15 @@
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+// Include the component HTML helpers.
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+
+JHtml::_('bootstrap.tooltip');
+JHtml::_('behavior.multiselect');
+JHtml::_('behavior.modal');
+JHtml::_('formbehavior.chosen', 'select');
+
  
 //print_r($this->item);
 JHtml::_('behavior.formvalidator');

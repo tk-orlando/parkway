@@ -1,6 +1,6 @@
 <?php
 
-class parkwayViewSuitePlans extends JViewLegacy {
+class parkwayViewSuiteplans extends JViewLegacy {
     
     
     

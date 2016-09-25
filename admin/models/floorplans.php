@@ -83,7 +83,7 @@ class parkwayModelFloorplans extends JModelList{
 			$db->quoteName(
 				explode(', ', $this->getState(
 					'list.select',
-					'f.id, f.title, f.building_id, b.property_id, f.floor_level, f.image, b.name'
+					'f.id, f.title, f.building_id, f.image, b.name, p.name'
 					)
 				)
 			)
@@ -93,11 +93,18 @@ class parkwayModelFloorplans extends JModelList{
                 
                 // Join over the building name.
 		
-                $query->select($db->quoteName('b.name', 'building_name'))
+                $query->select($db->quoteName('b.name', 'building_name'), 'b.property_id')
 			->join(
 				'LEFT',
 				$db->quoteName('#__parkway_buildings', 'b') . ' ON ' . $db->quoteName('b.id') . ' = ' . $db->quoteName('f.building_id')
 			);
+                //Join over the property name
+                $query->select($db->quoteName('p.name', 'property_name'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__parkway_properties', 'p') . ' ON ' . $db->quoteName('p.id') . ' = ' . $db->quoteName('b.property_id')
+			);
+                
                 
                                
                 //Filter by property.

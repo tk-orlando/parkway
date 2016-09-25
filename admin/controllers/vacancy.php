@@ -36,21 +36,32 @@ class ParkwayControllerVacancy extends JControllerAdmin
              
             $jinput = JFactory::getApplication()->input;
             $files = $jinput->files->get('jform'); 
-            $file= $files['pdf'];
+            $imageFile= $files['image'];
+            $pdfFile= $files['pdf'];
+            
+            $stamp = time().rand(0,999).'-';
             
              $data =new stdClass();
                 $data->id                   = $form['id'];
                 $data->name                 = $form['name'];
-                $data->property_id          = $form['property_id'];
-                $data->building_id          = $form['building_id'];
+                
+                if (!empty($imageFile['name'])){
+                    $data->image                = $stamp.$imageFile['name'];
+                }
+                
+                $data->published                 = $form['published'];
+                
+                $data->floorplan_id         = $form['floorplan_id'];
                 $data->floor                = $form['floor'];
                 $data->suite                = $form['suite'];
+                $data->alias               = $form['alias'];
                 $data->available_space      = $form['available_space'];
                 $data->divisible            = $form['divisible'];
                 $data->market_rent          = $form['market_rent'];
                 $data->date_available       = $form['date_available'];
-                if (!empty($file['name'])){
-                    $data->pdf                 = $file['name'];
+                
+                if (!empty($pdfFile['name'])){
+                    $data->pdf                 = $stamp.$pdfFile['name'];
                 }
                  
                 
@@ -71,22 +82,30 @@ class ParkwayControllerVacancy extends JControllerAdmin
             }
             
             
-            
-                
-                
-                
-                
-            if (!empty($file['name'])){
+             //upload Image file   
+            if (!empty($imageFile['name'])){
 
-                $filename = JFile::makeSafe($file['name']); 
+                $filename = JFile::makeSafe($imageFile['name']); 
 
+                $source = $imageFile['tmp_name'];
+                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
+
+                if (JFile::upload($source, $destination)) 
+                {
+
+                }
                 
-
-                $source = $file['tmp_name'];
-                $destination = JPATH_ROOT . '/media/com_parkway/'.$data->building_id.'/' . $filename;
-
+            }
                 
+                
+                
+             //upload PDF file   
+            if (!empty($pdfFile['name'])){
 
+                $filename = JFile::makeSafe($pdfFile['name']); 
+
+                $source = $pdfFile['tmp_name'];
+                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
 
                 if (JFile::upload($source, $destination)) 
                 {

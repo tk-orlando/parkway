@@ -4,7 +4,7 @@
 defined('JPATH_BASE') or die;
 
 
-class JFormFieldModal_Floorplan extends JFormField
+class JFormFieldModal_Building extends JFormField
 {
 	
 	protected $type = 'Modal_Floorplan';
@@ -30,20 +30,20 @@ class JFormFieldModal_Floorplan extends JFormField
  
 	  // Setup variables for display
 	  $html = array();
-	  $link = 'index.php?option=com_parkway&amp;view=floorplans&amp;layout=modal'.
+	  $link = 'index.php?option=com_parkway&amp;view=buildings&amp;layout=modal'.
                   '&amp;tmpl=component&amp;function=jSelectBook_'.$this->id;
  
 	  $db = JFactory::getDbo();
 	  $query = $db->getQuery(true);
-	  $query->select('title');
-	  $query->from('#__parkway_floorplans');
+	  $query->select('name');
+	  $query->from('#__parkway_buildings');
 	  $query->where('id='.(int)$this->value);
 	  $db->setQuery($query);
 	  if (!$title = $db->loadResult()) {
 		  JError::raiseWarning(500, $db->getErrorMsg());
 	  }
 	  if (empty($title)) {
-		  $title = JText::_('COM_PARKWAY_FIELD_SELECT_FLOORPLAN');
+		  $title = JText::_('COM_PARKWAY_FIELD_SELECT_BUILDING');
 	  }
 	  $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
  
@@ -55,9 +55,9 @@ class JFormFieldModal_Floorplan extends JFormField
 	  // The book select button
 	  $html[] = '<div class="button2-left">';
 	  $html[] = '  <div class="blank">';
-	  $html[] = '    <a class="modal" title="'.JText::_('COM_PARKWAY_SELECT_FLOORPLAN_TITLE').'" href="'.$link.
+	  $html[] = '    <a class="modal" title="'.JText::_('COM_PARKWAY_SELECT_BUILDING_TITLE').'" href="'.$link.
                          '" rel="{handler: \'iframe\', size: {x:800, y:450}}">'.
-                         JText::_('COM_PARKWAY_BUTTON_SELECT_FLOORPLAN').'</a>';
+                         JText::_('COM_PARKWAY_BUTTON_SELECT_BUILDING').'</a>';
 	  $html[] = '  </div>';
 	  $html[] = '</div>';
  

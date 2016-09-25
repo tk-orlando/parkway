@@ -1,35 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset>
+	<fieldset addfieldpath="/administrator/components/com_parkway/models/fields">
 		<field
 				name="id"
 				type="hidden"
 				/>
-		<field
-				name="building_id"
-				type="building"
-				query="SELECT id, name FROM #__parkway_buildings" key_field="id" value_field="name"
-                                label="COM_PARKWAY_SUITEPLAN_BUILDINGID_LABEL"
-				description="COM_PARKWAY_SUITEPLAN_BUILDINGID_DESC"
-				size=""
-				class=""
-				default=""
-				>
-                                <option value="">Choose One</option>
-                </field>
+		
                 
                 <field
 				name="floorplan_id"
-				type="floorplan"
-				query="SELECT id, title as floorplan_title FROM #__parkway_floorplans" key_field="id" value_field="floorplan_title"
-                                label="COM_PARKWAY_SUITEPLAN_FLOORPLANID_LABEL"
+				type="modal_floorplan"
+				label="COM_PARKWAY_SUITEPLAN_FLOORPLANID_LABEL"
 				description="COM_PARKWAY_SUITEPLAN_FLOORPLANID_DESC"
-				size=""
-				class=""
-				default=""
-				>
-                                <option value="">Choose One</option>
-                </field>
+				
+				/>
+                                
                                 
                 <field
 				name="title"

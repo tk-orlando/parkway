@@ -16,12 +16,11 @@ defined('_JEXEC') or die('Restricted access');
 		[widgetkit id="60"]
 
 		<!-- email, print, view map, share functions -->
-		<p class="results-links building-links">
-			<a href="#">Email Link</a>
-			<a href="#">Print Page</a>
-			<a href="#">View Map</a>
-			<a href="#">Share</a>
-		</p>
+		<ul class="building-links uk-margin-top">
+			<li><a href="#">View Map</a></li>
+			<li><a href="#" title="Print This Page" onclick="javascript:window.print()">Print Page</a></li>
+			<li><a class="a2a_dd" href="https://www.addtoany.com/share">Share</a></li>
+		</ul>
 	</div>
 	<div class="uk-width-medium-3-4">
 		<div class="uk-grid">
@@ -101,15 +100,15 @@ defined('_JEXEC') or die('Restricted access');
 			        <tr>
 			            <td><?php echo $value->suite ?></td>
 			            <td><?php echo $value->floor ?></td>
-			            <td><?php echo $value->available_space ?></td>
-			            <td><?php echo $value->divisible ?></td>
+			            <td><?php echo number_format($value->available_space, 0, '.', ',')  ?></td>
+                                    <td><?php if ($value->divisible == 1){ echo 'Yes'; }else{ echo 'No'; } ?></td>
 			            <td><?php echo $value->market_rent ?></td>
 			            <td><?php echo $this->formatDate($value->date_available) ?></td>
 			            
 			            <td> 
 			                <?php if (isset($value->pdf) && !empty($value->pdf)):?>
 			                    
-													<p class="results-links"><a href="<?php echo "/media/com_parkway/$value->building_id/$value->pdf" ?>" class="uk-icon-file-pdf-o" target="_blank"></a></p>
+													<p class="results-links"><a href="<?php echo "/media/com_parkway/$value->pdf" ?>" class="uk-icon-file-pdf-o" target="_blank"></a></p>
 													
 			                <?php endif; ?>
 			            </td>
@@ -123,3 +122,5 @@ defined('_JEXEC') or die('Restricted access');
 	</div>
 </div>
 </article>
+
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>

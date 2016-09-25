@@ -38,13 +38,15 @@ class ParkwayControllerSuiteplan extends JControllerAdmin
             $files = $jinput->files->get('jform'); 
             $file= $files['image'];
             
+            $stamp = time().rand(0,999).'-';
+            
              $data =new stdClass();
                 $data->id                   = $form['id'];
                 $data->floorplan_id          = $form['floorplan_id'];
                 $data->title                = $form['title'];
                 
                 if (!empty($file['name'])){
-                    $data->image                = $file['name'];
+                    $data->image                = $stamp.$file['name'];
                 }
                 
                 
@@ -85,7 +87,7 @@ class ParkwayControllerSuiteplan extends JControllerAdmin
                 $building_id = $db->loadResult();
 
                 $source = $file['tmp_name'];
-                $destination = JPATH_ROOT . '/media/com_parkway/'.$building_id.'/' . $filename;
+                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
 
                 if (JFile::upload($source, $destination)) 
                     {

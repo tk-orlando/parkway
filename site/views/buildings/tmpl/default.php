@@ -1,6 +1,18 @@
 <?php
-
+require_once JPATH_SITE . '/components/com_parkway/helpers/route.php';
 $mycount = 0;
+
+// Get the route .
+/*
+$itemid = ParkwayHelperRoute::getBuildingsRoute();
+$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
+$route  = 'index.php?option=com_users&view=remind' . $itemid;
+echo '------------------>'.$route.'<-------------------';
+*/
+
+$jinput = JFactory::getApplication()->input;
+$Itemid = $jinput->getInt('Itemid');
+
 
 ?>
 
@@ -22,7 +34,7 @@ $mycount = 0;
 			
     <?php if( isset($value->image) && !empty($value->image) ): ?>
 		
-					<img class="results-thumb" src="<?php echo '/media/com_parkway/'.$value->id.'/' . $value->image ?>" alt="<?php echo $value->image ?>">
+					<img class="results-thumb" src="<?php echo '/media/com_parkway/' . $value->image ?>" alt="<?php echo $value->image ?>">
 					
 		<?php elseif( empty($value->image) ): ?>
 		
@@ -90,7 +102,7 @@ $mycount = 0;
 						</td>
 					</tr>
 				</table>
-        <p class="results-links"><a href="<?php echo "index.php?option=com_parkway&view=vacancies&layout=bybuilding&filter_building=$value->id" ; ?>">View Listings</a><br><a href="#">Interactive Floor Plan</a></p>
+                            <p class="results-links"><a href="<?php echo JURI::base()."index.php?option=com_parkway&view=vacancies&layout=bybuilding&filter_building=$value->id&Itemid=$Itemid " ; ?>">View Listings</a><br><a href="<?php echo JURI::base()."index.php?option=com_parkway&view=floorplan&building=$value->id&Itemid=$Itemid" ?>">Interactive Floor Plan</a></p>
 			</div>
 		</div>
 	</div>

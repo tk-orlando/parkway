@@ -38,35 +38,44 @@ class ParkwayControllerBuilding extends JControllerAdmin
               //redirects user back to blog homepage with Cancellation Message
             
             //get form variables
-             $form = JRequest::getVar( 'jform' );
+             
+             $form = JRequest::getVar( 'jform','','post', 'array', JREQUEST_ALLOWHTML );
             
             $jinput = JFactory::getApplication()->input;
             $files = $jinput->files->get('jform'); 
             $file= $files['image'];
+						$pdfFile= $files['fact_sheet'];
              
-             
+            $stamp = time().rand(0,999).'-';
              
              $data =new stdClass();
                 $data->id                   = $form['id'];
                 $data->name                 = $form['name'];
-                $data->property_id           = $form['property_id'];
+                $data->property_id          = $form['property_id'];
                 $data->address1             = $form['address1'];
                 $data->address2             = $form['address2'];
                 $data->city                 = $form['city'];
                 $data->state                = $form['state'];
                 $data->zip                  = $form['zip'];
                 //$data->floor_size           = $form['floor_size'];
-								$data->number_of_floors           = $form['number_of_floors'];
+		$data->number_of_floors     = $form['number_of_floors'];
                 $data->year_built           = $form['year_built'];
                 $data->typical_floor_size   = $form['typical_floor_size'];
                 $data->parking_ratio        = $form['parking_ratio'];
                 $data->amenities            = $form['amenities'];
-                
-                if (!empty($file['name'])){
-                    $data->image                = $file['name'];
+								$data->leed_cert            = $form['leed_cert'];
+								$data->building_size        = $form['building_size'];
+								
+								if (!empty($pdfFile['name'])){
+                    $data->fact_sheet                 = $stamp.$pdfFile['name'];
                 }
                 
-                $data->coordinates          = $form['coordinates'];          
+                if (!empty($file['name'])){
+                    $data->image            = $stamp.$file['name'];
+                }
+                
+                $data->coordinates          = $form['coordinates']; 
+                 
                 $data->published            = $form['published'];
                         
                 $db = JFactory::getDBO();
@@ -89,7 +98,7 @@ class ParkwayControllerBuilding extends JControllerAdmin
                 $filename = JFile::makeSafe($file['name']); 
 
                 $source = $file['tmp_name'];
-                $destination = JPATH_ROOT . '/media/com_parkway/'.$data->id.'/' . $filename;
+                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
 
                 if (JFile::upload($source, $destination)) 
                 {
@@ -98,6 +107,20 @@ class ParkwayControllerBuilding extends JControllerAdmin
             }
 
             
+						 //upload PDF file   
+            if (!empty($pdfFile['name'])){
+
+                $filename = JFile::makeSafe($pdfFile['name']); 
+
+                $source = $pdfFile['tmp_name'];
+                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
+
+                if (JFile::upload($source, $destination)) 
+                {
+
+                }
+                
+            }
           
             
              

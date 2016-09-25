@@ -8,21 +8,29 @@ defined('_JEXEC') or die('Restricted access');
 //print_r($this->item);
 JHtml::_('behavior.formvalidator');
 ?>
+
+
+
 <form action="<?php echo JRoute::_('index.php?option=com_parkway&view=vacancy&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
     <div class="form-horizontal">
         <fieldset class="adminform">
             <legend><?php echo JText::_('COM_PARKWAY_VACANCY_DETAILS'); ?></legend>
+                <?php if (isset($this->item->image) &&  !empty($this->item->image)): ?>
+                    <img src="<?php echo JURI::root(true).'/media/com_parkway/'.$this->item->image ?>" >
+                <?php endif;?>
             <div class="row-fluid">
                 <div class="span6">
                     <?php foreach ($this->form->getFieldset() as $field): ?>
+                    
                         <div class="control-group">
                             <div class="control-label"><?php echo $field->label; ?></div>
                             <div class="controls"><?php echo $field->input; ?></div>
                         </div>
                     <?php endforeach; ?>
-                
-                <?php echo $this->item->pdf ?>
+                <?php if (isset($this->item->pdf ) && !empty($this->item->pdf )): ?>
+                    <a target="_blank" href="<?php echo JURI::root(true).'/media/com_parkway/'.$this->item->pdf ?>" ><img width="50px" src="<?php echo JURI::root(true).'/administrator/components/com_parkway/images/adobe-27964_640.png'; ?>"></a>
+                <?php endif;?>
                 </div>
             </div>
         </fieldset>

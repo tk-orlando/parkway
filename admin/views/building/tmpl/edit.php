@@ -11,7 +11,7 @@ defined('_JEXEC') or die('Restricted access');
  
 ?>
 
-    <img src = "<?php echo "/media/com_parkway/".$this->item->id."/".$this->item->image ?>">
+    <img src = "<?php echo "/media/com_parkway/".$this->item->image ?>">
     
 
     

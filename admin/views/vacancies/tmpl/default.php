@@ -29,7 +29,7 @@ $this->items = $this->get('Items');
 <div id="j-main-container" class="span10">
     
   
-<form action="<?php echo JRoute::_('index.php?option=com_parkway&view=vacancies&id=' . (int) $this->item->id); ?>"
+<form action="<?php echo JRoute::_('index.php?option=com_parkway&view=vacancies&id=' . (int) $this->items->id); ?>"
       method="post" name="adminForm" id="adminForm" class="form-validate">   
     
   <?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>  
@@ -71,7 +71,7 @@ $this->items = $this->get('Items');
                 
                 <td><div ><a href="index.php?option=com_parkway&view=vacancy&layout=edit&id=<?php echo $value->id  ?>"><?php echo $value->building_name ?></a></div></td>
                 <td><div><?php echo $value->property_name ?></div></td>
-                <td><div ><?php echo $value->floor ?></div></td>
+                <td><div ><?php echo $value->floor_level ?></div></td>
                 <td><div ><?php echo $value->suite ?></div></td>
                 <td><div ><?php echo $value->available_space ?></div></td>
                 <td><div ><?php if (!empty($value->pdf)): ?>

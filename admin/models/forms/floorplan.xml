@@ -9,13 +9,11 @@
                 
                 <field
 				name="building_id"
-				type="sql"
-				query="SELECT id, name FROM #__parkway_buildings" key_field="id" value_field="name"
+				type="modal_building"
+				
                                 label="COM_PARKWAY_FLOORPLAN_BUILDINGID_LABEL"
 				description="COM_PARKWAY_FLOORPLAN_BUILDINGID_DESC"
-				size=""
-				class=""
-				default=""
+				
 				>
                                 <option value="">Choose One</option>
                 </field>
@@ -31,6 +29,24 @@
 				default=""
 				/>
                 <field
+				name="alias"
+				type="alias"
+				label="COM_PARKWAY_FLOORPLAN_ALIAS_LABEL"
+				description="COM_PARKWAY_FLOORPLAN_ALIAS_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+				<field
+				name="floor_level"
+				type="floor_level"
+				label="COM_PARKWAY_FLOORPLAN_FLOOR_LABEL"
+				description="COM_PARKWAY_FLOORPLAN_FLOOR_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+                <field
 				name="image"
 				type="file"
 				label="COM_PARKWAY_FLOORPLAN_IMAGE_LABEL"
@@ -40,6 +56,9 @@
 				class="file"
 				default=""
 				/>
+                
+                
+                
                 <field
 				name="coordinates"
 				type="textarea"

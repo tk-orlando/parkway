@@ -1,10 +1,10 @@
 <?php
 
 
-class parkwayControllerBuildings extends JControllerForm{
+class parkwayControllerFloorplan extends JController{
     
     
-    protected $text_prefix = 'COM_PARKWAY_BUILDINGS';
+    protected $text_prefix = 'COM_PARKWAY_FLOORPLAN';
 
 	public function __construct($config = array())
         {
@@ -14,7 +14,7 @@ class parkwayControllerBuildings extends JControllerForm{
         }
 	
 
-	public function getModel($name = 'Buildings', $prefix = 'ParkwayModel', $config = array())
+	public function getModel($name = 'Floorplan', $prefix = 'ParkwayModel', $config = array())
 	{
 		$model = parent::getModel($name, $prefix, $config);
                 

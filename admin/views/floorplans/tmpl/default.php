@@ -43,7 +43,7 @@ $this->items = $this->get('Items');
             <th></th>
             <th>Floor Title</th>
             <th>Building</th>
-            
+            <th>Property</th>
             <th>ID</th>
             
         </tr>
@@ -55,7 +55,7 @@ $this->items = $this->get('Items');
                 
                 <td><a href="index.php?option=com_parkway&view=floorplan&layout=edit&id=<?php echo $value->id  ?>"><?php echo $value->title ?></a></td>
                 <td><?php echo $value->building_name ?></td>
-                
+                <td><?php echo $value->property_name ?></td>
                 <td><?php echo $value->id ?></td>
             </tr>
         <?php endforeach; ?>

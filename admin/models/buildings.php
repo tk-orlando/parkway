@@ -13,7 +13,7 @@ class parkwayModelBuildings extends JModelList{
                     $config['filter_fields'] = array(
                             'id', 'b.id',
                             'property_id', 'b.property_id', 
-                            
+                            'space', 'b.typical_floor_size',
                             
                     );
 
@@ -28,18 +28,7 @@ class parkwayModelBuildings extends JModelList{
             parent::__construct($config);
     }
 
-    /**
-     * Method to auto-populate the model state.
-     *
-     * Note. Calling getState in this method will result in recursion.
-     *
-     * @param   string  $ordering   An optional ordering field.
-     * @param   string  $direction  An optional direction (asc|desc).
-     *
-     * @return  void
-     *
-     * @since   1.6
-     */
+    
     protected function populateState($ordering = 'b.id', $direction = 'asc')
     {
             $app = JFactory::getApplication();
@@ -58,7 +47,8 @@ class parkwayModelBuildings extends JModelList{
             $property = $this->getUserStateFromRequest($this->context . '.filter.property', 'filter_property');
             $this->setState('filter.property', $property);
             
-            
+            $space = $this->getUserStateFromRequest($this->context . '.filter.space', 'filter_space');
+            $this->setState('filter.space', $space);
             
             
             // List state information.
@@ -89,7 +79,7 @@ class parkwayModelBuildings extends JModelList{
                 $query->select(
 			$db->quoteName(
 				explode(', ', $this->getState(
-					'list.select', 'b.id, b.name, b.address1, b.address2, b.city, b.state, b.zip, b.year_built, b.typical_floor_size, b.number_of_floors, p.name'
+					'list.select', 'b.id, b.name, b.address1, b.address2, b.city, b.state, b.zip, b.year_built, b.typical_floor_size, b.number_of_floors, p.name, b.parking_ratio'
 					)
 				)
 			)
@@ -118,6 +108,43 @@ class parkwayModelBuildings extends JModelList{
 				);
                     
                 }
+                //Filter by typical_floor_size.
+                $space = $this->getState('filter.space');
+                
+              
+                
+                if (!empty($space['min']) && !empty($space['max']))
+		{
+                            
+                    
+				$query->where(
+					'(' . $db->quoteName('b.typical_floor_size') . ' BETWEEN ' . intval($space['min'] ) . ' AND ' . intval($space['max'] ). ')'
+				);
+                    
+                    
+                    
+                }else if (empty($space['min']) && !empty($space['max'])){
+                    
+                    
+                    
+                    
+				$query->where(
+					'(' . $db->quoteName('b.typical_floor_size') . ' BETWEEN 0 AND ' . intval($space['max'] ). ')'
+				);
+                               
+                                
+                    
+                }else if (!empty($space['min']) && empty($space['max'])){
+                    
+                   
+                    
+				$query->where(
+					'(' . $db->quoteName('b.typical_floor_size') . ' BETWEEN ' . intval($space['min']) . ' AND 999999999 )'
+				);
+                                 
+                    
+                }
+                
                                                    
                 
 
