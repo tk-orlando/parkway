@@ -7,7 +7,7 @@
 	<license>see LICENSE.txt</license>
 	<authorEmail>support@tko-orlando.com</authorEmail>
 	<authorUrl>www.tkorlando.com</authorUrl>
-	<version>1.0.6</version>
+	<version>1.0.7</version>
 	<description>Parkway Online Property Listings.</description>
         
         <!-- Runs on install/uninstall/update; New in 1.6 -->
@@ -51,7 +51,7 @@
 			<menu link="option=com_parkway&amp;view=properties" view="Properties" img="class:parkway" alt="parkway/Properties">Properties</menu>
                         <menu link="option=com_parkway&amp;view=buildings" view="Buildings" img="class:parkway" alt="parkway/Buildings">Buildings</menu>
                         <menu link="option=com_parkway&amp;view=floorplans" view="Floorplans" img="class:parkway" alt="parkway/FloorPlans">Floor Plans</menu>
-                        <menu link="option=com_parkway&amp;view=floorplans" view="Floorplans" img="class:parkway" alt="parkway/FloorPlans">Suite Plans</menu>
+                        
                         <menu link="option=com_parkway&amp;view=vacancies" view="Vacancies" img="class:parkway" alt="parkway/Vacancies">Vacancies</menu>
                        
                         

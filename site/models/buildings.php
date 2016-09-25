@@ -13,6 +13,7 @@ class parkwayModelBuildings extends JModelList{
                     $config['filter_fields'] = array(
                             'id', 'b.id',
                             'property_id', 'b.property_id', 
+                            'space', 'b.typical_floor_size',
                             
                             
                     );
@@ -58,6 +59,8 @@ class parkwayModelBuildings extends JModelList{
             $property = $this->getUserStateFromRequest($this->context . '.filter.property', 'filter_property');
             $this->setState('filter.property', $property);
             
+            $space= $this->getUserStateFromRequest($this->context . '.filter.space', 'filter_space');
+            $this->setState('filter.space', $space);
             
             
             
@@ -89,7 +92,7 @@ class parkwayModelBuildings extends JModelList{
 		$query->select(
 			$db->quoteName(
 				explode(', ', $this->getState(
-					'list.select', 'b.id, b.name, b.address1, b.address2, b.city, b.state, b.zip, b.year_built, b.typical_floor_size, b.image, b.number_of_floors, p.name'
+					'list.select', 'b.id, b.name, b.address1, b.address2, b.city, b.state, b.zip, b.year_built, b.typical_floor_size, b.image, b.number_of_floors, p.name, b.leed_cert, b.parking_ratio, b.building_size, b.fact_sheet'
 					)
 				)
 			)
@@ -117,7 +120,42 @@ class parkwayModelBuildings extends JModelList{
 				);
                     
                 }
-                                                   
+                 //Filter by typical_floor_size.
+                $space = $this->getState('filter.space');
+                
+              
+                
+                if (!empty($space['min']) && !empty($space['max']))
+		{
+                            
+                    
+				$query->where(
+					'(' . $db->quoteName('b.typical_floor_size') . ' BETWEEN ' . intval($space['min'] ) . ' AND ' . intval($space['max'] ). ')'
+				);
+                    
+                    
+                    
+                }else if (empty($space['min']) && !empty($space['max'])){
+                    
+                    
+                    
+                    
+				$query->where(
+					'(' . $db->quoteName('b.typical_floor_size') . ' BETWEEN 0 AND ' . intval($space['max'] ). ')'
+				);
+                               
+                                
+                    
+                }else if (!empty($space['min']) && empty($space['max'])){
+                    
+                   
+                    
+				$query->where(
+					'(' . $db->quoteName('b.typical_floor_size') . ' BETWEEN ' . intval($space['min']) . ' AND 999999999 )'
+				);
+                                 
+                    
+                }                                   
                 
 
                 

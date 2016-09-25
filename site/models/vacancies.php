@@ -96,7 +96,7 @@ class parkwayModelVacancies extends JModelList{
 		$query->select(
 			$db->quoteName(
 				explode(', ', $this->getState(
-					'list.select', 'v.id, v.building_id, b.property_id, v.floor, v.suite, v.available_space, v.divisible, v.market_rent, v.date_available, v.pdf'
+					'list.select', 'v.id, v.floorplan_id, b.property_id, v.suite, v.available_space, v.divisible, v.market_rent, v.date_available, v.pdf, p.name'
 					)
 				)
 			)
@@ -104,14 +104,30 @@ class parkwayModelVacancies extends JModelList{
 		
 		$query->from($db->quoteName('#__parkway_vacancies', 'v'));
                 
+                
+                // Join over the floorplan.
+		
+                $query->select($db->quoteName('f.floor_level') )
+			->join(
+				'LEFT',
+				$db->quoteName('#__parkway_floorplans', 'f') . ' ON ' . $db->quoteName('f.id') . ' = ' . $db->quoteName('v.floorplan_id')
+			);
+
                 // Join over the building name and property id from the buildings table.
 		
                 $query->select($db->quoteName('b.name', 'building_name'), $db->quoteName('b.property_id','property_id') )
 			->join(
 				'LEFT',
-				$db->quoteName('#__parkway_buildings', 'b') . ' ON ' . $db->quoteName('b.id') . ' = ' . $db->quoteName('v.building_id')
+				$db->quoteName('#__parkway_buildings', 'b') . ' ON ' . $db->quoteName('b.id') . ' = ' . $db->quoteName('f.building_id')
 			);
                  
+                // Join over the property name.
+		
+                $query->select($db->quoteName('p.name', 'property_name'), $db->quoteName('p.id','id') )
+			->join(
+				'LEFT',
+				$db->quoteName('#__parkway_properties', 'p') . ' ON ' . $db->quoteName('p.id') . ' = ' . $db->quoteName('b.property_id')
+			);
 
 
                 //Filter by properties 
@@ -133,7 +149,7 @@ class parkwayModelVacancies extends JModelList{
                 if (!empty( $building )){
                     
                     $query->where(
-					'(' . $db->quoteName('v.building_id') . ' = ' . intval($building ). ')'
+					'(' . $db->quoteName('f.building_id') . ' = ' . intval($building ). ')'
 				);
                     
                 }

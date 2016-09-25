@@ -1,6 +1,4 @@
 
-
-
 CREATE TABLE IF NOT EXISTS `#__parkway_buildings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -21,23 +19,24 @@ CREATE TABLE IF NOT EXISTS `#__parkway_buildings` (
   `gallery_id` int(11) DEFAULT NULL,
   `template_id` int(11) DEFAULT NULL,
   `property_id` int(11) DEFAULT NULL,
+  `rentable_space` int(11) DEFAULT NULL,
+  `number_of_floors` varchar(50) DEFAULT NULL,
+  `leed_cert` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 
 CREATE TABLE IF NOT EXISTS `#__parkway_floorplans` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `building_id` varchar(255) NOT NULL,
-  `floor_level` int(11) DEFAULT NULL,
+  `building_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
+  `alias` varchar(255) DEFAULT NULL,
   `coordinates` longtext,
+  `floor_level` varchar(255) DEFAULT NULL,
+  `tooltip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 
 CREATE TABLE IF NOT EXISTS `#__parkway_properties` (
@@ -48,14 +47,22 @@ CREATE TABLE IF NOT EXISTS `#__parkway_properties` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
-
-CREATE TABLE IF NOT EXISTS `#__parkway_suiteplans` (
+CREATE TABLE IF NOT EXISTS `#__parkway_vacancies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `floorplan_id` int(11) NOT NULL DEFAULT '0',
-  `title` varchar(255) NOT NULL DEFAULT '0',
-  `image` varchar(255) NOT NULL DEFAULT '0',
+  `floorplan_id` int(11) DEFAULT NULL,
+  `alias` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `suite` varchar(255) NOT NULL,
+  `available_space` int(11) NOT NULL DEFAULT '0',
+  `divisible` tinyint(1) NOT NULL DEFAULT '0',
+  `market_rent` int(11) NOT NULL,
+  `date_available` date NOT NULL,
+  `available_now` tinyint(1) NOT NULL DEFAULT '0',
+  `pdf` varchar(255) NOT NULL,
+  `keywords` longtext NOT NULL,
+  `published` tinyint(1) NOT NULL DEFAULT '0',
+  `tag` longtext,
+  `tooltip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 

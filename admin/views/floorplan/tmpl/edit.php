@@ -10,7 +10,7 @@ JHtml::_('behavior.formvalidator');
 ?>
 
 
- <img src = "<?php echo "/media/com_parkway/".$this->item->building_id."/".$this->item->image ?>">
+ <img src = "<?php echo "/media/com_parkway/".$this->item->image ?>">
 
 <form action="<?php echo JRoute::_('index.php?option=com_parkway&view=floorplan&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm" class="form-validate"  enctype="multipart/form-data" >

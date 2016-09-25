@@ -32,21 +32,25 @@ class ParkwayControllerFloorplan extends JControllerAdmin
              
             
             //get form variables
-             $form = JRequest::getVar( 'jform' );
+             //$form = JRequest::getVar( 'jform' );
+             $form = JRequest::getVar( 'jform','','post', 'array', JREQUEST_ALLOWHTML );
             
             $jinput = JFactory::getApplication()->input;
             $files = $jinput->files->get('jform'); 
             $file= $files['image'];
             
+            $stamp = time().rand(0,999).'-';
+            
              $data =new stdClass();
                 $data->id                   = $form['id'];
                 
                 $data->building_id          = $form['building_id'];
-                $data->floor_level                = $form['floor_level'];
+                $data->floor_level          = $form['floor_level'];
                 $data->title                = $form['title'];
+                $data->alias               = $form['alias'];
                 
                 if (!empty($file['name'])){
-                    $data->image                = $file['name'];
+                    $data->image                = $stamp.$file['name'];
                 }
                 
                 $data->coordinates      = $form['coordinates'];
@@ -74,7 +78,7 @@ class ParkwayControllerFloorplan extends JControllerAdmin
                 $filename = JFile::makeSafe($file['name']); 
 
                 $source = $file['tmp_name'];
-                $destination = JPATH_ROOT . '/media/com_parkway/'.$data->building_id.'/' . $filename;
+                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
 
                
 

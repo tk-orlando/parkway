@@ -15,7 +15,7 @@ $this->items = $this->get('Items');
 <div id="j-main-container" class="span10">
 
 
-<form action="<?php echo JRoute::_('index.php?option=com_parkway&view=suiteplans&id=' . (int) $this->item->id); ?>"
+<form action="<?php echo JRoute::_('index.php?option=com_parkway&view=suiteplans&id=' . (int) $this->items->id); ?>"
       method="post" name="adminForm" id="adminForm">
 
     
@@ -28,8 +28,10 @@ $this->items = $this->get('Items');
             <th></th>
             
             <th>Suite Title</th>
-            <th>Building</th>
             <th>Floor</th>
+            <th>Building</th>
+             <th>Property</th>
+            
             
             <th>ID</th>
             
@@ -41,8 +43,10 @@ $this->items = $this->get('Items');
                 <td><input id="cb0" name="cid[]" value="<?php echo $value->id ?>" onclick="Joomla.isChecked(this.checked);" type="checkbox"></td>
                 
                 <td><a href="index.php?option=com_parkway&view=suiteplan&layout=edit&id=<?php echo $value->id  ?>"><?php echo $value->title ?></a></td>
-                <td><?php echo $this->getBuildingName($value->floorplan_id) ?></td>
-                <td><?php echo $value->floor_title ?></td>
+                 <td><?php echo $value->floor_title ?></td>
+                <td><?php echo $value->building_name ?></td>
+                <td><?php echo $value->property_name ?></td>
+               
                 
                 <td><?php echo $value->id ?></td>
             </tr>

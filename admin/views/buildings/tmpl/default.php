@@ -43,7 +43,7 @@ $this->items = $this->get('Items');
 						<th>Property</th>
             <th>Address</th>
 						<th>Number of Floors</th>
-            <th>Year Built</th>
+            <th>Parking Ratio</th>
             <th>Typical Floor Size (Sq.Ft.)</th>
             <th>ID</th>
             
@@ -57,7 +57,7 @@ $this->items = $this->get('Items');
 								<td><?php echo $value->property_name ?></td>
                 <td><?php echo $value->address1 ?> <?php echo $value->address2 ?><?php echo $value->city ?> <?php echo $value->state ?> <?php echo $value->zip ?></td>
                 <td><?php echo $value->number_of_floors ?></td>
-								<td><?php echo $value->year_built ?></td>
+								<td><?php echo $value->parking_ratio ?></td>
                 <td><?php echo $value->typical_floor_size ?></td>
                 <td><?php echo $value->id ?></td>
             </tr>
