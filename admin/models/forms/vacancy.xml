@@ -39,6 +39,15 @@
 				default=""
 				/>
                 <field
+				name="tooltip"
+				type="text"
+				label="COM_PARKWAY_VACANCY_TOOLTIP_LABEL"
+				description="COM_PARKWAY_VACANCY_TOOLTIP_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+                <field
 				name="image"
 				type="file"
 				label="COM_PARKWAY_VACANCY_IMAGE_LABEL"
@@ -91,11 +100,11 @@
                  
                   <field
 				name="market_rent"
-				type="number"
+				type="text"
 				label="COM_PARKWAY_VACANCY_MARKETRENT_LABEL"
 				description="COM_PARKWAY_VACANCY_MARKETRENT_DESC"
 				size="40"
-				class="validate-numeric required"
+				class="inputbox"
 				default=""
                                 
 				/>

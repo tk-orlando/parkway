@@ -10,7 +10,12 @@ class ParkwayControllerBuilding extends JControllerAdmin
 	
 	protected $text_prefix = 'COM_PARKWAY_BUILDING';
 
-	
+	public function __construct($config = array()) {
+            
+            //$this->registerTask('deleteFactSheet', 'deleteFactSheet');
+            
+            parent::__construct($config);
+        }
 	
 
 	public function getModel($name = 'Building', $prefix = 'ParkwayModel', $config = array())
@@ -44,7 +49,8 @@ class ParkwayControllerBuilding extends JControllerAdmin
             $jinput = JFactory::getApplication()->input;
             $files = $jinput->files->get('jform'); 
             $file= $files['image'];
-						$pdfFile= $files['fact_sheet'];
+            $fileThumb= $files['imagethumb'];
+            $pdfFile= $files['fact_sheet'];
              
             $stamp = time().rand(0,999).'-';
              
@@ -52,6 +58,7 @@ class ParkwayControllerBuilding extends JControllerAdmin
                 $data->id                   = $form['id'];
                 $data->name                 = $form['name'];
                 $data->property_id          = $form['property_id'];
+                $data->widgetkit_id          = $form['widgetkit_id'];
                 $data->address1             = $form['address1'];
                 $data->address2             = $form['address2'];
                 $data->city                 = $form['city'];
@@ -63,16 +70,58 @@ class ParkwayControllerBuilding extends JControllerAdmin
                 $data->typical_floor_size   = $form['typical_floor_size'];
                 $data->parking_ratio        = $form['parking_ratio'];
                 $data->amenities            = $form['amenities'];
-								$data->leed_cert            = $form['leed_cert'];
-								$data->building_size        = $form['building_size'];
-								
-								if (!empty($pdfFile['name'])){
-                    $data->fact_sheet                 = $stamp.$pdfFile['name'];
+                $data->leed_cert            = $form['leed_cert'];
+                $data->building_size        = $form['building_size'];
+                $data->show_fact_sheet        = $form['show_fact_sheet'];
+		
+            //upload image
+            if (!empty($file['name'])){
+                $this->deleteImage(); //delete previousimage
+                $data->image            = $stamp.$file['name'];
+                
+                $filename = JFile::makeSafe($file['name']); 
+
+                $source = $file['tmp_name'];
+                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
+                if (JFile::upload($source, $destination)) 
+                {
+
+                }
+ 
+            }
+            //upload image thumbnail
+            if (!empty($fileThumb['name'])){
+                $this->deleteImageThumb(); //delete previousimage thumbnail
+                $data->imagethumb            = $stamp.$fileThumb['name'];
+                
+                $filename = JFile::makeSafe($fileThumb['name']); 
+
+                $source = $fileThumb['tmp_name'];
+                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
+
+                if (JFile::upload($source, $destination)) 
+                {
+
+                } 
+            }
+            
+            //upload PDF file   
+            if (!empty($pdfFile['name'])){
+                $this->deleteFactSheet(); //delete previous fact sheet
+                $data->fact_sheet                 = $stamp.$pdfFile['name'];
+                
+                $filename = JFile::makeSafe($pdfFile['name']); 
+
+                $source = $pdfFile['tmp_name'];
+                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
+                if (JFile::upload($source, $destination)) 
+                {
+
                 }
                 
-                if (!empty($file['name'])){
-                    $data->image            = $stamp.$file['name'];
-                }
+                
+            }
+                
                 
                 $data->coordinates          = $form['coordinates']; 
                  
@@ -93,38 +142,7 @@ class ParkwayControllerBuilding extends JControllerAdmin
                     $db->updateObject( '#__parkway_buildings', $data, id );
             }
             
-            
-            if (!empty($file['name'])){
-                $filename = JFile::makeSafe($file['name']); 
-
-                $source = $file['tmp_name'];
-                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
-
-                if (JFile::upload($source, $destination)) 
-                {
-
-                } 
-            }
-
-            
-						 //upload PDF file   
-            if (!empty($pdfFile['name'])){
-
-                $filename = JFile::makeSafe($pdfFile['name']); 
-
-                $source = $pdfFile['tmp_name'];
-                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
-
-                if (JFile::upload($source, $destination)) 
-                {
-
-                }
-                
-            }
-          
-            
-             
-             $msg = JText::_( 'COM_PARKWAY_POST_SAVED' );
+            $msg = JText::_( 'COM_PARKWAY_POST_SAVED' );
             $this->setRedirect( 'index.php?option=com_parkway&view=buildings', $msg );
         }
       
@@ -136,7 +154,103 @@ class ParkwayControllerBuilding extends JControllerAdmin
             $this->setRedirect( 'index.php?option=com_parkway&view=buildings' );
 
         }
-       
+        public function deleteFactSheet(){
+            
+            $form   = JRequest::getVar( 'jform','','post', 'array', JREQUEST_ALLOWHTML );
+            $id     = $form['id'];
+            
+            //find factsheet
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query->select('*');
+            $query->from('#__parkway_buildings');  
+            $query->where('id = '.$id);
+            
+            $db->setQuery($query);
+            $result = $db->loadObject();    
+            
+                      
+            //delete file
+            JFile::delete(JPATH_ROOT.'/media/com_parkway/'.$result->fact_sheet);
+            
+            //delete factsheet in database
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query->update('#__parkway_buildings');
+            $query->set('fact_sheet = "" ');  
+            $query->where('id = '.$id);
+            
+            $db->setQuery($query);
+            $result = $db->execute();
+            
+            //redirects user back to building form
+            $msg = JText::_( 'COM_PARKWAY_POST_DELETEFACTSHEET' );
+            $this->setRedirect( 'index.php?option=com_parkway&view=building&layout=edit&id='.$id );
+        }
+        public function deleteImage(){
+            $form   = JRequest::getVar( 'jform','','post', 'array', JREQUEST_ALLOWHTML );
+            $id     = $form['id'];
+            
+            //find factsheet
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query->select('*');
+            $query->from('#__parkway_buildings');  
+            $query->where('id = '.$id);
+            
+            $db->setQuery($query);
+            $result = $db->loadObject();    
+            
+                      
+            //delete file
+            JFile::delete(JPATH_ROOT.'/media/com_parkway/'.$result->image);
+            
+            //delete image in database
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query->update('#__parkway_buildings');
+            $query->set('image = "" ');  
+            $query->where('id = '.$id);
+            
+            $db->setQuery($query);
+            $result = $db->execute();
+            
+            //redirects user back to building form
+            $msg = JText::_( 'COM_PARKWAY_POST_DELETEIMAGE' );
+            $this->setRedirect( 'index.php?option=com_parkway&view=building&layout=edit&id='.$id );
+        }
+        public function deleteImageThumb(){
+            $form   = JRequest::getVar( 'jform','','post', 'array', JREQUEST_ALLOWHTML );
+            $id     = $form['id'];
+            
+            //find factsheet
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query->select('*');
+            $query->from('#__parkway_buildings');  
+            $query->where('id = '.$id);
+            
+            $db->setQuery($query);
+            $result = $db->loadObject();    
+            
+                      
+            //delete file
+            JFile::delete(JPATH_ROOT.'/media/com_parkway/'.$result->imagethumb);
+            
+            //delete image in database
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query->update('#__parkway_buildings');
+            $query->set('imagethumb = "" ');  
+            $query->where('id = '.$id);
+            
+            $db->setQuery($query);
+            $result = $db->execute();
+            
+            //redirects user back to building form
+            $msg = JText::_( 'COM_PARKWAY_POST_DELETEIMAGE' );
+            $this->setRedirect( 'index.php?option=com_parkway&view=building&layout=edit&id='.$id );
+        }
 
 	
 }

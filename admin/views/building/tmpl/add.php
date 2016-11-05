@@ -7,6 +7,7 @@ defined('_JEXEC') or die('Restricted access');
  JHtml::_('behavior.formvalidator');
 //print_r($this->item);
 
+
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_parkway&view=building&layout=add&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm" class="form-validate"  enctype="multipart/form-data">

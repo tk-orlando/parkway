@@ -41,25 +41,25 @@ $this->items = $this->get('Items');
                 </th>
                 
                 <th>
-                    Building
+                    <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_BUILDING', 'f.building_id', $listDirn, $listOrder); ?>
                 </th>
                 <th>
-										Property
-								</th>
+		<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_PROPERTY', 'b.property_id', $listDirn, $listOrder); ?>
+		</th>
                 <th>
-                    Floor
+                   <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_FLOOR', 'f.floor_level', $listDirn, $listOrder); ?>
                 </th>
                 <th>
-                    Suite
+                    <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_SUITE', 'v.suite', $listDirn, $listOrder); ?>
                 </th>
                 <th>
-                    Available Space (Sq.Ft.)
+                    <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_AVAILABLESPACE', 'v.available_space', $listDirn, $listOrder); ?>
                 </th>
                 <th>
-                    PDF
+                    <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_PDF', 'v.pdf', $listDirn, $listOrder); ?>
                 </th>
                 <th>
-                    ID
+                    <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'v.id', $listDirn, $listOrder); ?>
                 </th>
             </tr>
         <?php  foreach ($this->items as $key => $value): ?>
@@ -82,7 +82,13 @@ $this->items = $this->get('Items');
                 <td><?php echo $value->id ?></td>
             </tr>
         <?php endforeach; ?>
-    
+    <tfoot>
+            <tr>
+                    <td colspan="10">
+                            <?php echo $this->pagination->getListFooter(); ?>
+                    </td>
+            </tr>
+    </tfoot>
     </table>
     
     <input type="hidden" name="view" value="vacancies" />

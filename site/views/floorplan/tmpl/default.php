@@ -27,28 +27,63 @@ $jinput = JFactory::getApplication()->input;
 $Itemid = $jinput->getInt('Itemid');
 $building = $jinput->getInt('building');
 
+
 ?>
-<style>
-    .polygon {
-            transition: .6s fill;
-            fill: #D3D3D3;
-            opacity: 0;
-    }
-    .polygon:hover {
-            fill: #22aa22;
-            opacity: 0.5;
-    }
-     .polygondefault {
-            fill: #22aa22;
-            opacity: 0.5;
-    }
-    
-    
-    
-</style>
 
+<script type="text/javascript">
+    
+    
+$(document).ready(function() {
+  $().click(showSuitePlan('<?php echo $suitePlan{0}->alias ?>'));
+});
+$(document).ready(function() {
+  $().click(showSuiteOverlay('<?php echo $suitePlan{0}->alias ?>'));
+});
+    function showSuite(thechosenone){
+        showSuitePlan(thechosenone);
+        showSuiteOverlay(thechosenone);
+        
+    }
+    
+    function showSuitePlan(thechosenone) {
 
-<h2><?php echo $this->getBuildingName(); ?></h2>
+       $('.uk-width-large-2-3').each(function(index) {
+
+             if ($(this).attr("id") == thechosenone) {
+
+                   $(this).show();
+
+              }else {
+
+                   $(this).hide();
+
+              }
+
+         });
+
+    } 
+   function showSuiteOverlay(thechosenone) {
+
+       $('.polygon').each(function(index) {
+
+             if ($(this).attr("id") == thechosenone) {
+
+                $(this).attr("class", "polygon polygondefault");        
+                
+
+              }else {
+
+                    $(this).attr("class", "polygon");      
+              }
+
+         });
+
+    }  
+    
+
+</script>   
+
+<h2 id="buildingTitleHeader"><?php echo $this->getBuildingName(); ?></h2>
 <p class="results-links"><a class="uk-button" href="index.php?option=com_parkway&view=vacancies&layout=bybuilding&filter_building=<?php echo $building ?>&Itemid=<?php echo $Itemid ?>">View Building Listings</a></p>
 <div class="uk-grid">
     <div class="uk-width-large-1-3 uk-margin-bottom image-container">
@@ -60,14 +95,19 @@ $building = $jinput->getInt('building');
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 <?php echo $buildingImageSize[0]?> <?php echo $buildingImageSize[1]?>" preserveAspectRatio="xMinYMin meet" >
                 <image id="building"  width="100%" height="100%" xlink:href="<?php echo '/media/com_parkway/' . $this->items->image ?>" ></image>
                     <?php echo $this->parseBuildingMap($this->items->coordinates,$buildingTooltips ) ; ?>
-            </svg>                                    
+        </svg>  
+        <div>Please hover or tap on the highlighted floors to view available space</div>
+        
         <?php else: ?>
             
             <img class="results-thumb" src="/components/com_parkway/images/thumb-placeholder.jpg" alt="placeholder">
                         
         <?php endif; ?>
     </div>
-    <div class="uk-width-large-2-3">
+    
+ <?php foreach($suitePlan as $key=>$value): ?>
+    
+    <div id="<?php echo $value->alias ;?>" class="uk-width-large-2-3 newboxes">
         <h4>Space Summary</h4>
         <div class="uk-grid uk-margin-bottom">
             <div class="uk-width-small-1-2">
@@ -76,21 +116,21 @@ $building = $jinput->getInt('building');
                         <td>Suite Number</td>
                         <td class="uk-text-bold">
                             <!-- var suiteNumber -->
-                            <?php echo $suitePlan->suite ;?>
+                            <?php echo $value->suite ;?>
                         </td>
                     </tr>
                     <tr>
                         <td>Floor</td>
                         <td class="uk-text-bold">
                             <!-- var floorNum -->
-                            <?php echo $suitePlan->floor ;?>
+                            <?php echo $value->floor_level ;?>
                         </td>
                     </tr>
                     <tr>
                         <td>Available Sq. Ft.</td>
                         <td class="uk-text-bold">
                             <!-- var availSqFt -->
-                            <?php echo $suitePlan->available_space ;?>
+                            <?php echo number_format($value->available_space) ;?>
                         </td>
                     </tr>
                     <tr>
@@ -98,7 +138,7 @@ $building = $jinput->getInt('building');
                         <td class="uk-text-bold">
                             <!-- Bool divisible -->
                             <?php 
-                                                        if ($suitePlan->divisible = 1){
+                                                        if ($value->divisible = 1){
                                                             echo 'Yes';
                                                         }else{
                                                             echo 'No';
@@ -114,22 +154,26 @@ $building = $jinput->getInt('building');
                         <td>Market Rent</td>
                         <td class="uk-text-bold">
                             <!-- var marketRent -->
-                            $<?php echo $suitePlan->market_rent ;?>/sq ft
+                            $<?php echo $value->market_rent ;?>
                         </td>
                     </tr>
                     <tr>
                         <td>Date Available</td>
                         <td class="uk-text-bold">
                             <!-- var dateAvailable -->
-                            <?php echo $this->formatDate($suitePlan->date_available) ;?>
+                            <?php echo $this->formatDate($value->date_available) ;?>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
         <!-- site plan -->
-        <img class="suiteplan" src="/media/com_parkway/<?php  echo $suitePlan->image ?>">
+        <img class="suiteplan" alt="suiteplan" src="/media/com_parkway/<?php  echo $value->image ?>">
     </div>
+    
+    
+    <?php endforeach;?>
+    
 </div>
 
 

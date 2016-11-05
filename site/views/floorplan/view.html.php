@@ -136,50 +136,49 @@ class parkwayViewFloorplan extends JViewLegacy{
          
      }
      /*
-      * Get all suite plan based on URL parameter 
+      * Get all suite plans based on URL parameter 
       */
       public function getVacancy(){
          
         $jinput = JFactory::getApplication()->input;
         $buildingID = $jinput->get('building');
         $floorPlan = $jinput->get('planid');
-        $suitePlan = $jinput->get('suite');
+        //$suitePlan = $jinput->get('suite');
          
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $db->setQuery($query);
         
          
-        if (isset($suitePlan) && !empty($suitePlan)){
-
-            $query->select('id, image, suite, floor, available_space, divisible, market_rent, date_available, pdf ')  ; 
-            $query->from('#__parkway_vacancies');
-            $query->where("alias LIKE '$suitePlan' LIMIT 1");    
-             $db->setQuery($query);
-            $result = $db->loadObject();
+        if (isset($floorPlan) && !empty($floorPlan)){
             
-        }else if (isset($floorPlan) && !empty($floorPlan)){
-            
-            $query->select('v.id, v.image, v.suite, v.available_space, v.divisible, v.market_rent, v.date_available, v.pdf ')  ; 
+            $query->select('v.id, v.image, v.suite, f.floor_level, v.alias, v.available_space, v.divisible, v.market_rent, v.date_available, v.pdf, v.published ')  ; 
             $query->from('#__parkway_vacancies as v');
             $query->leftJoin('#__parkway_floorplans as f ON v.floorplan_id = f.id');
-            $query->where("f.alias = '$floorPlan' LIMIT 1");    
+            //$query->where("f.alias = '$floorPlan' ");  
+            // Filter by floor alias
+            $query->where( 'f.alias = "'.$floorPlan. '" ' );
+            // Filter by published status
+            $query->where( $db->quoteName('v.published') . ' = 1 ' );
+            
              $db->setQuery($query);
-            $result = $db->loadObject();
+            $result = $db->loadObjectList();
              
         }else if (isset($buildingID) && !empty($buildingID)){
             
-            $query->select('v.id, v.image, v.suite, v.available_space, v.divisible, v.market_rent, v.date_available, v.pdf ')  ; 
+            $query->select('v.id, v.image, v.suite,f.floor_level, v.alias, v.available_space, v.divisible, v.market_rent, v.date_available, v.pdf, v.published ')  ; 
             $query->from('#__parkway_vacancies as v');
             $query->leftJoin('#__parkway_floorplans as f ON v.floorplan_id = f.id');
-            $query->where("f.building_id = $buildingID LIMIT 1");    
+            //$query->where("f.building_id = $buildingID ");
+            // Filter by published status
+            $query->where('f.building_id = '.$buildingID);
+            // Filter by published status
+            $query->where( $db->quoteName('v.published') . ' = 1 ' );
+            
              $db->setQuery($query);
-            $result = $db->loadObject();
+            $result = $db->loadObjectList();
             
-        }else{
-            
-            
-        }         
+        }        
 
         
         
@@ -204,6 +203,9 @@ class parkwayViewFloorplan extends JViewLegacy{
        
         $jinput = JFactory::getApplication()->input;
         $buildingID = (int) $jinput->get('building');
+        $floorPlanID = (string) $jinput->get('planid');
+        
+        libxml_use_internal_errors(true);
         
         $dom = new DOMDocument();
         $dom->loadHTML($imageMaps);
@@ -213,33 +215,39 @@ class parkwayViewFloorplan extends JViewLegacy{
         $result = "";
         $class = 'polygon';
         
+       
         
-        foreach( $searchNode as $searchNode )
+        foreach( $searchNode as $key=>$value )
         {
-            $data_group = $searchNode->getAttribute('id');
+            $data_group = (string) trim($value->getAttribute('id'));
+            
+            $coords = $value->getAttribute('points');
+            $href = JRoute::_('index.php?option=com_parkway&view=floorplan&building='.$buildingID.'&planid='.$data_group.'#buildingTitleHeader');
+            
+            $tooltip = '';
+            
+            foreach ( $tooltips as $key=>$value ) {
+                if ( $data_group == $value->alias ) {
+                    $tooltip = $value->tooltip;
+                    
+                }
+            }
             
             
-            
-            //$href = $searchNode->getAttribute('href');
-            //$href = 'javascript:vodata-group(0);'; 
-            $coords = $searchNode->getAttribute('points');
-            $tooltip = $searchNode->getAttribute('id');
-
-
-             //format tooltip
-             $newtip = substr(strstr($tooltip, '-'), strlen('-'));
-             $newtip = ucfirst(str_replace('-',' ',$newtip));
-					 
-            
-            $href = JRoute::_('index.php?option=com_parkway&view=floorplan&building='.$buildingID.'&planid='.$data_group.'');
-            
+            if (($floorPlanID == $data_group) || (!$floorPlanID && ($key == 0))){
+                
+                $class = 'polygondefault';
+            }else{
+                $class='polygon';
+            }
+             
             
             //$href2 = $searchNode->setAttribute("href", "index.php?option=com_parkway&view=floorplan&fid=");
 
            //$result .= '<polygon data-group="'.$data_group.'" class="'.$class.'" href="'.$href.'" shape="'.$shape.'" target="_self" coords="'.$coords .'" >'."\r";
            
            $result .= '<a xlink:href="'.$href.'" target="_self">';
-            $result .= '<g><title>' . $newtip . '</title><polygon id="'.$data_group.'" class="'.$class.'" points="'.$coords .'" ></polygon></g>'."\r";
+            $result .= '<g><title>' . $tooltip . '</title><polygon id="'.$data_group.'" class="'.$class.'" points="'.$coords .'" ></polygon></g>'."\r";
             $result .= '</a>';
            
         } 
@@ -250,6 +258,8 @@ class parkwayViewFloorplan extends JViewLegacy{
          * Tag formatting for floorplan overlays
          */
      public function parseFloorplanMap($imageMaps, $tooltips){
+         
+        libxml_use_internal_errors(true);
          
         $dom = new DOMDocument();
         $dom->loadHTML($imageMaps);
@@ -275,9 +285,18 @@ class parkwayViewFloorplan extends JViewLegacy{
             $anchor = '#'.$data_group;
             
             $href = JRoute::_('index.php?option=com_parkway&view=floorplan&building='.$buildingID.'&planid='.$floorPlanID.'&suite='.$data_group.'');
+            $tooltip = '';
             
-            $result .= '<a xlink:href="'.$href.'" target="_self">'."\r";
-            $result .= '<g><title>$tooltip</title><polygon id="'.$data_group.'" class="'.$class.'" points="'.$coords .'" ></polygon></g>'."\r";
+            foreach ( $tooltips as $key=>$value ) {
+                if ( $data_group == $value->alias ) {
+                    $tooltip = $value->tooltip;
+                    
+                }
+            }
+            
+            
+            $result .= '<a xlink:href="javascript:showSuite(\''.$data_group.'\');" >'."\r";
+            $result .= '<g><title>'.$tooltip.'</title><polygon id="'.$data_group.'" class="'.$class.'" points="'.$coords .'" ></polygon></g>'."\r";
             $result .= '</a>'."\r";
         } 
         return $result;

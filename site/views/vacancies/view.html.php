@@ -74,8 +74,11 @@ class parkwayViewVacancies extends JViewLegacy{
 
             $query->select('*')  ; 
             $query->from('#__parkway_buildings');
-            $query->where("id = $propertyID");    
+           
             
+            
+             $query->where("id = $propertyID"); 
+                
             $db->setQuery($query);
             $result = $db->loadObject();
             

@@ -158,7 +158,18 @@ class parkwayModelFloorplans extends JModelList{
 				);
 			}
 		}
-                
+                // Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'f.title');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
+		{
+			$orderCol = $db->quoteName('c.title') . ' ' . $orderDirn . ', ' . $db->quoteName('a.ordering');
+		}
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+
+		return $query;
                
                 
                 return $query ;

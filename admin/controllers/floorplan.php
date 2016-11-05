@@ -48,14 +48,29 @@ class ParkwayControllerFloorplan extends JControllerAdmin
                 $data->floor_level          = $form['floor_level'];
                 $data->title                = $form['title'];
                 $data->alias               = $form['alias'];
+                $data->tooltip               = $form['tooltip'];
                 
+                
+                //upload image
                 if (!empty($file['name'])){
-                    $data->image                = $stamp.$file['name'];
+
+                    $this->deleteImage() ; //delete previous image
+                    
+                    $data->image  = $stamp.$file['name'];
+
+                    $filename = JFile::makeSafe($file['name']); 
+
+                    $source = $file['tmp_name'];
+                    $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
+                    if (JFile::upload($source, $destination)) 
+                    {
+
+                    }
+
                 }
                 
+                
                 $data->coordinates      = $form['coordinates'];
-                
-                
                 
                 $db = JFactory::getDBO();
             
@@ -74,20 +89,6 @@ class ParkwayControllerFloorplan extends JControllerAdmin
             
             
             
-            if (!empty($file['name'])){
-                $filename = JFile::makeSafe($file['name']); 
-
-                $source = $file['tmp_name'];
-                $destination = JPATH_ROOT . '/media/com_parkway/' . $stamp.$filename;
-
-               
-
-
-                if (JFile::upload($source, $destination)) 
-                {
-
-                }
-            }
             
           
             
@@ -103,6 +104,38 @@ class ParkwayControllerFloorplan extends JControllerAdmin
             $msg = JText::_( 'COM_PARKWAY_POST_CANCELLED' );
             $this->setRedirect( 'index.php?option=com_parkway&view=floorplans' );
 
+        }
+        public function deleteImage(){
+            $form   = JRequest::getVar( 'jform','','post', 'array', JREQUEST_ALLOWHTML );
+            $id     = $form['id'];
+            
+            //find factsheet
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query->select('*');
+            $query->from('#__parkway_floorplans');  
+            $query->where('id = '.$id);
+            
+            $db->setQuery($query);
+            $result = $db->loadObject();    
+            
+                      
+            //delete file
+            JFile::delete(JPATH_ROOT.'/media/com_parkway/'.$result->image);
+            
+            //delete image in database
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query->update('#__parkway_floorplans');
+            $query->set('image = "" ');  
+            $query->where('id = '.$id);
+            
+            $db->setQuery($query);
+            $result = $db->execute();
+            
+            //redirects user back to building form
+            $msg = JText::_( 'COM_PARKWAY_POST_DELETEIMAGE' );
+            $this->setRedirect( 'index.php?option=com_parkway&view=floorplan&layout=edit&id='.$id );
         }
        
 

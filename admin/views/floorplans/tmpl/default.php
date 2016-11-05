@@ -41,10 +41,10 @@ $this->items = $this->get('Items');
         
         <tr>
             <th></th>
-            <th>Floor Title</th>
-            <th>Building</th>
-            <th>Property</th>
-            <th>ID</th>
+            <th><?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_TITLE', 'f.title', $listDirn, $listOrder); ?></th>
+            <th><?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_BUILDING', 'f.building_id', $listDirn, $listOrder); ?></th>
+            <th><?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_PROPERTY', 'b.property_id', $listDirn, $listOrder); ?></th>
+            <th><?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'f.id', $listDirn, $listOrder); ?></th>
             
         </tr>
         
@@ -59,7 +59,13 @@ $this->items = $this->get('Items');
                 <td><?php echo $value->id ?></td>
             </tr>
         <?php endforeach; ?>
-    
+    <tfoot>
+            <tr>
+                    <td colspan="10">
+                            <?php echo $this->pagination->getListFooter(); ?>
+                    </td>
+            </tr>
+    </tfoot>
     </table>
 
     <input type="hidden" name="view" value="floorplans" />

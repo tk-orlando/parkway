@@ -7,11 +7,18 @@ defined('_JEXEC') or die('Restricted access');
  
 //print_r($this->item);
 JHtml::_('behavior.formvalidator');
+
+if (isset($this->item->image) && !empty($this->item->image)){
+    
+    JToolbarHelper::custom('floorplan.deleteImage', 'delete', 'delete', 'Delete Image', false);
+}
+
 ?>
 
-
- <img src = "<?php echo "/media/com_parkway/".$this->item->image ?>">
-
+<?php if (isset($this->item->image) && !empty($this->item->image)): ?>
+    <div><img src = "<?php echo "/media/com_parkway/".$this->item->image ?>"></div>
+    
+<?php endif; ?>
 <form action="<?php echo JRoute::_('index.php?option=com_parkway&view=floorplan&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm" class="form-validate"  enctype="multipart/form-data" >
     <div class="form-horizontal">

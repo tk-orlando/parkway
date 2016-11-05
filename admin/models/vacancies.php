@@ -12,9 +12,12 @@ class parkwayModelVacancies extends JModelList{
             {
                     $config['filter_fields'] = array(
                             'id', 'v.id',
-                            //'floor', 'v.floor', 
-                            //'building_name','b.name',
+                            'building_id','f.building_id',
+                            'property_id','b.property_id',
+                            'floor_level', 'f.floor_level', 
                             'suite', 'v.suite', 
+                            'available_space','v.available_space',
+                            'pdf','v.pdf',
                             
                     );
 
@@ -306,7 +309,18 @@ class parkwayModelVacancies extends JModelList{
 				);
 			}
 		}
-                
+                // Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'f.building_id');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
+		{
+			$orderCol = $db->quoteName('c.title') . ' ' . $orderDirn . ', ' . $db->quoteName('a.ordering');
+		}
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+
+		return $query;
                
                 
                 return $query ;

@@ -37,11 +37,21 @@
 				class="inputbox"
 				default=""
 				/>
+                <field
+				name="tooltip"
+				type="text"
+				label="COM_PARKWAY_FLOORPLAN_TOOLTIP_LABEL"
+				description="COM_PARKWAY_FLOORPLAN_TOOLTIP_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+                
 				<field
 				name="floor_level"
 				type="floor_level"
-				label="COM_PARKWAY_FLOORPLAN_FLOOR_LABEL"
-				description="COM_PARKWAY_FLOORPLAN_FLOOR_DESC"
+				label="COM_PARKWAY_FLOORPLAN_FLOORLEVEL_LABEL"
+				description="COM_PARKWAY_FLOORPLAN_FLOORLEVEL_DESC"
 				size="40"
 				class="inputbox"
 				default=""

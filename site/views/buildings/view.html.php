@@ -61,11 +61,7 @@ class parkwayViewBuildings extends JViewLegacy{
 		return parent::display($tpl);
 	}
         
-     public function getPropertyName(){
-         
-         $jinput = JFactory::getApplication()->input;
-         $propertyID = $jinput->get('filter_property');
-         
+     public function getPropertyName($propertyID){
          
          
          if (isset($propertyID) && !empty($propertyID)){
@@ -85,7 +81,26 @@ class parkwayViewBuildings extends JViewLegacy{
          
          return ;
      }   
-	
+     public function getAllBuildings(){
+         
+          $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+
+            $query->select('*')  ; 
+            $query->from('#__parkway_buildings AS b');
+            $query->leftjoin('#__parkway_properties AS p  ON b.property_id = p.id');
+            
+            
+            $db->setQuery($query);
+            $result = $db->loadObjectList(); 
+            
+            
+            return $result; 
+            
+           
+           
+         
+     }
 	
 
 	

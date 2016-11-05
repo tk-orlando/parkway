@@ -51,6 +51,8 @@ class parkwayModelFloorplan extends JModelItem{
                                 '(' . $db->quoteName('b.id') . ' =  '.$building.' )'
                         );
          
+        
+        
         $db->setQuery($query);
 	$result = $db->loadObject();
         

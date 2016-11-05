@@ -12,7 +12,7 @@ class parkwayModelVacancies extends JModelList{
             {
                     $config['filter_fields'] = array(
                             'id', 'v.id',
-                            //'floor', 'v.floor', 
+                            'floor', 'v.floor_level', 
                             //'building_name','b.name',
                             'suite', 'v.suite', 
                             
@@ -157,6 +157,12 @@ class parkwayModelVacancies extends JModelList{
                 //Filter by available space.
                 $space = $this->getState('filter.space');
                 
+                
+                $session = JFactory::getSession();
+                if ($session->get( 'max')){
+                    
+                    $space['max'] = (int) $session->get( 'max', $max );
+                }
               
                 
                 if (!empty($space['min']) && !empty($space['max']))
@@ -216,8 +222,23 @@ class parkwayModelVacancies extends JModelList{
 				);
 			}
 		}
-                
+                // Filter by published status
                
+                $query->where(
+                        '(' . $db->quoteName('v.published') . ' = 1 )'
+                );
+                
+                // Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'f.floor_level');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
+		{
+			$orderCol = $db->quoteName('c.title') . ' ' . $orderDirn . ', ' . $db->quoteName('a.ordering');
+		}
+
+		$query->order('f.floor_level','asc');
+                $query->order('v.suite','asc');
                 
                 return $query ;
         }

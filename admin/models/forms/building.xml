@@ -27,6 +27,16 @@
 			hint="JFIELD_ALIAS_PLACEHOLDER"
 			size="45"
 		/>
+                <field
+                    name="widgetkit_id"
+                    type="sql"
+                    default="0"
+                    label="Select a gallery"
+                    query="SELECT id, name FROM #__widgetkit WHERE data LIKE '%gallery%' "
+                    key_field="id"
+                    value_field="name"
+                />
+                    
 
 		
 
@@ -146,6 +156,17 @@
                                 accept="image/*"
 				default=""
 				/>
+                 <field
+				name="imagethumb"
+				type="file"
+				label="COM_PARKWAY_BUILDING_IMAGETHUMB_LABEL"
+				description="COM_PARKWAY_BUILDING_IMAGETHUMB_DESC"
+				size=""
+				class="file"
+                                accept="image/*"
+				default=""
+				/>   
+                
                 <field
 				name="coordinates"
 				type="textarea"
@@ -289,8 +310,8 @@
 								<field
 				name="building_size"
 				type="number"
-				label="COM_PARKWAY_BUILDING_SIZE_LABEL"
-				description="COM_PARKWAY_BUILDING_SIZE_DESC"
+				label="COM_PARKWAY_BUILDING_BUILDINGSIZE_LABEL"
+				description="COM_PARKWAY_BUILDING_BUILDINGSIZE_DESC"
 				size="40"
 				class="inputbox validate-numeric required"
 				default=""
@@ -327,16 +348,29 @@
                                 <option value="0">JNO</option>
                 </field>
 							
-							 <field
+		<field
 				name="fact_sheet"
 				type="file"
-				label="COM_PARKWAY_VACANCY_FACT_SHEET_LABEL"
-				description="COM_PARKWAY_VACANCY_PDF_DESC"
+				label="COM_PARKWAY_BUILDING_FACT_SHEET_LABEL"
+				description="COM_PARKWAY_BUILDING_PDF_DESC"
 				size="40"
 				class="media"
 				default=""
-				/>
-                
+		>
+                <button>Delete Fact Sheet</button>
+                </field>
+                <field
+				name="show_fact_sheet"
+				type="radio"
+				label="COM_PARKWAY_BUILDING_SHOWFACTSHEET_LABEL"
+				description="COM_PARKWAY_BUILDING_SHOWFACTSHEET_DESC"
+				size="40"
+				class="btn-group btn-group-yesno"
+				default=""
+				>
+                                <option value="1">JYES</option>
+                                <option value="0">JNO</option>
+                </field>
                 
 	</fieldset>
 </form>

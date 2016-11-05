@@ -23,13 +23,7 @@
 			<option value="">JOPTION_SELECT_PROPERTY</option>
 		</field>
                 
-                <field
-			name="space"
-			type="space"
-			label="COM_PARKWAY_ITEMS_TAG_FILTER"
-			hint="JSEARCH_FILTER"
-			class="js-stools-search-string"
-		/>
+               
                 
     </fields>
 </form>

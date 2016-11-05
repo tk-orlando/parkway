@@ -25,6 +25,8 @@ class parkwayModelBuildings extends JModelList{
                             $config['filter_fields'][] = 'association';
                     }
             }
+            
+            
 
             parent::__construct($config);
     }
@@ -89,19 +91,36 @@ class parkwayModelBuildings extends JModelList{
 
 		// Select the required fields from the table.
                 $query->select($db->quoteName('b.name', 'building_name'));
+                $query->select('COUNT(b.name) AS counted_vacancies');
 		$query->select(
 			$db->quoteName(
 				explode(', ', $this->getState(
-					'list.select', 'b.id, b.name, b.address1, b.address2, b.city, b.state, b.zip, b.year_built, b.typical_floor_size, b.image, b.number_of_floors, p.name, b.leed_cert, b.parking_ratio, b.building_size, b.fact_sheet'
+					'list.select', 'b.id, b.name, b.address1, b.address2, b.city, b.state, b.zip, b.year_built, b.typical_floor_size, b.image, b.imagethumb, b.number_of_floors, p.name, b.leed_cert, b.parking_ratio, b.building_size, b.fact_sheet, b.show_fact_sheet'
 					)
 				)
-			)
+			) 
 		);
 		
-		$query->from($db->quoteName('#__parkway_buildings', 'b'));
+		$query->from($db->quoteName('#__parkway_vacancies', 'v'));
+                 // Join over the floorplan.
+		
+                $query->select($db->quoteName('f.floor_level') )
+			->join(
+				'LEFT',
+				$db->quoteName('#__parkway_floorplans', 'f') . ' ON ' . $db->quoteName('f.id') . ' = ' . $db->quoteName('v.floorplan_id')
+			);
+
+                // Join over the building name and property id from the buildings table.
+		
+                $query->select($db->quoteName('b.name', 'building_name'), $db->quoteName('b.property_id','property_id') )
+			->join(
+				'LEFT',
+				$db->quoteName('#__parkway_buildings', 'b') . ' ON ' . $db->quoteName('b.id') . ' = ' . $db->quoteName('f.building_id')
+			);
+                 
                 // Join over the property name.
 		
-                $query->select($db->quoteName('p.name', 'property_name'))
+                $query->select($db->quoteName('p.name', 'property_name'), $db->quoteName('p.id','id') )
 			->join(
 				'LEFT',
 				$db->quoteName('#__parkway_properties', 'p') . ' ON ' . $db->quoteName('p.id') . ' = ' . $db->quoteName('b.property_id')
@@ -120,17 +139,19 @@ class parkwayModelBuildings extends JModelList{
 				);
                     
                 }
-                 //Filter by typical_floor_size.
+                 
+                
+                //Filter by available space.
                 $space = $this->getState('filter.space');
                 
               
-                
+               
                 if (!empty($space['min']) && !empty($space['max']))
 		{
                             
                     
 				$query->where(
-					'(' . $db->quoteName('b.typical_floor_size') . ' BETWEEN ' . intval($space['min'] ) . ' AND ' . intval($space['max'] ). ')'
+					'(' . $db->quoteName('v.available_space') . ' BETWEEN ' . intval($space['min'] ) . ' AND ' . intval($space['max'] ). ')'
 				);
                     
                     
@@ -141,7 +162,7 @@ class parkwayModelBuildings extends JModelList{
                     
                     
 				$query->where(
-					'(' . $db->quoteName('b.typical_floor_size') . ' BETWEEN 0 AND ' . intval($space['max'] ). ')'
+					'(' . $db->quoteName('v.available_space') . ' BETWEEN 0 AND ' . intval($space['max'] ). ')'
 				);
                                
                                 
@@ -151,7 +172,7 @@ class parkwayModelBuildings extends JModelList{
                    
                     
 				$query->where(
-					'(' . $db->quoteName('b.typical_floor_size') . ' BETWEEN ' . intval($space['min']) . ' AND 999999999 )'
+					'(' . $db->quoteName('v.available_space') . ' BETWEEN ' . intval($space['min']) . ' AND 999999999 )'
 				);
                                  
                     
@@ -186,6 +207,21 @@ class parkwayModelBuildings extends JModelList{
 		}
                 
                
+                $query->where('v.published = "1" ');
+            
+                $query->group('b.name');
+                
+                // Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'p.name');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
+		{
+			$orderCol = $db->quoteName('c.title') . ' ' . $orderDirn . ', ' . $db->quoteName('a.ordering');
+		}
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+                
                 
                 return $query ;
         }

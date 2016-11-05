@@ -29,7 +29,7 @@ class parkwayModelBuildings extends JModelList{
     }
 
     
-    protected function populateState($ordering = 'b.id', $direction = 'asc')
+    protected function populateState($ordering = 'b.name', $direction = 'asc')
     {
             $app = JFactory::getApplication();
 
@@ -174,6 +174,19 @@ class parkwayModelBuildings extends JModelList{
 				);
 			}
 		}
+                
+                // Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'p.name');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
+		{
+			$orderCol = $db->quoteName('c.title') . ' ' . $orderDirn . ', ' . $db->quoteName('a.ordering');
+		}
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+
+		return $query;
                 
                
                 
