@@ -12,7 +12,7 @@ Joomla component for Parkway Properties.
 
 ### Installation
 
-- Go to https://github.com/rudy88mph/parkway and click on 'Clone or Download'.
+- https://github.com/tkorlando/parkway
 - Choose 'Download ZIP'.
 - In Joomla's admin menu go to Extensions -> Manage -> Install
 - Upload and install the zip file in the 'Upload Package File' tab.
