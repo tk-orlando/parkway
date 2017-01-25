@@ -112,7 +112,8 @@ class parkwayModelBuildings extends JModelList{
 
                 // Join over the building name and property id from the buildings table.
 		
-                $query->select($db->quoteName('b.name', 'building_name'), $db->quoteName('b.property_id','property_id') )
+                $query->select( $db->quoteName('b.property_id','property_id') )
+                    ->select($db->quoteName('b.name', 'building_name'))
 			->join(
 				'LEFT',
 				$db->quoteName('#__parkway_buildings', 'b') . ' ON ' . $db->quoteName('b.id') . ' = ' . $db->quoteName('f.building_id')
