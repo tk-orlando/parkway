@@ -49,14 +49,14 @@ class parkwayViewBuildings extends JViewLegacy{
     
     public function display($tpl = null)
 	{
-		
+
+
             $this->items            = $this->get('Items');
             $this->pagination       = $this->get('Pagination');
             $this->state            = $this->get('State');
             $this->filterForm       = $this->get('FilterForm');
             $this->activeFilters    = $this->get('ActiveFilters');
-            
-           
+
 
 		return parent::display($tpl);
 	}
@@ -86,7 +86,8 @@ class parkwayViewBuildings extends JViewLegacy{
           $db = JFactory::getDbo();
             $query = $db->getQuery(true);
 
-            $query->select('*')  ; 
+            $query->select('*')  ;
+            $query->select('b.name as building_name')  ;
             $query->from('#__parkway_buildings AS b');
             $query->leftjoin('#__parkway_properties AS p  ON b.property_id = p.id');
             

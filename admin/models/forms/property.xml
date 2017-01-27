@@ -14,6 +14,16 @@
 				class="inputbox"
 				default=""
 				/>
+
+		<field
+				name="item_id"
+				type="text"
+				label="Item Id"
+				description="COM_PARKWAY_PROPERTY_NAME_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+		/>
                 
 	</fieldset>
 </form>

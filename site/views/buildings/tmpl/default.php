@@ -1,5 +1,4 @@
 <?php
-require_once JPATH_SITE . '/components/com_parkway/helpers/route.php';
 $mycount = 0;
 
 // Get the route .
@@ -12,6 +11,7 @@ echo '------------------>'.$route.'<-------------------';
 
 $jinput = JFactory::getApplication()->input;
 $Itemid = $jinput->getInt('Itemid');
+
 
 
 ?>
