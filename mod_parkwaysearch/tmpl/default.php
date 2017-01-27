@@ -10,16 +10,7 @@ defined('_JEXEC') or die; ?>
                 onchange="updateItemId(this.options[this.selectedIndex].getAttribute('attr-url'))">
             <option selected="" disabled="">Property</option>
             <?php foreach ($properties as $property) { ?>
-
-                <?php
-                $db = JFactory::getDbo();
-                $query = $db->getQuery(true);
-                $sql = "SELECT path FROM #__menu WHERE id = '$property->item_id'";
-                $db->SetQuery($sql);
-                $menuItem = $db->loadObject();
-                ?>
-
-                <option attr-url="<?php echo $menuItem->path ?>" attr-item-id="<?php echo $property->item_id ?>"
+                <option attr-url="<?php echo $property->path ?>" attr-item-id="<?php echo $property->item_id ?>"
                         value="<?php echo $property->id ?>"><?php echo $property->name ?></option>
             <?php } ?>
         </select>
@@ -31,7 +22,7 @@ defined('_JEXEC') or die; ?>
             <option value="50000">50,000</option>
             <option value="100000">100,000</option>
         </select>
-        <button type="submit" class="uk-button">Search Now</button> 
+        <button type="submit" class="uk-button">Search Now</button>
     </form>
 </div>
 <script>
