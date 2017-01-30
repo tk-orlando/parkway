@@ -21,10 +21,9 @@ $buildingcount = 0;
 $jinput = JFactory::getApplication()->input;
 $Itemid = $jinput->getInt('Itemid');
 
-foreach ($this->items as $key => $value){
-    $buildingcount++;
-    
-}
+
+    $buildingcount=count($this->items);
+
 
 
 

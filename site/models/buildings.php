@@ -75,7 +75,35 @@ class parkwayModelBuildings extends JModelList
         return parent::getStoreId($id);
     }
 
+    protected function getListQueryTest()
+    {
+        // Create a new query object.
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
 
+        //Filter by properties
+       // $property = intval($this->getState('filter.property'));
+        $jinput = JFactory::getApplication()->input;
+        $property = $jinput->get('filter_property', '0', 'INT');
+        if (!empty($property)) {
+
+        }
+
+
+
+        $sql = "SELECT * FROM dq9bd_parkway_vacancies AS v
+        LEFT JOIN dq9bd_parkway_floorplans AS f ON f.id=v.floorplan_id
+        LEFT JOIN dq9bd_parkway_buildings AS b ON b.id=f.building_id
+        LEFT JOIN dq9bd_parkway_properties AS p ON p.id=b.property_id
+        WHERE  p.id=$property
+        
+";
+
+        $db->SetQuery($sql);
+
+        return $sql;
+        $menuItem = $db->loadObject();
+    }
     protected function getListQuery()
     {
         // Create a new query object.
@@ -126,37 +154,26 @@ class parkwayModelBuildings extends JModelList
         $property = $this->getState('filter.property');
 
         if (!empty($property)) {
-
             $query->where(
                 '(' . $db->quoteName('b.property_id') . ' = ' . intval($property) . ')'
             );
-
         }
-
 
         //Filter by available space.
         $space = $this->getState('filter.space');
 
 
         if (!empty($space['min']) && !empty($space['max'])) {
-
-
             $query->where(
                 '(' . $db->quoteName('v.available_space') . ' BETWEEN ' . intval($space['min']) . ' AND ' . intval($space['max']) . ')'
             );
 
-
         } else if (empty($space['min']) && !empty($space['max'])) {
-
-
             $query->where(
                 '(' . $db->quoteName('v.available_space') . ' BETWEEN 0 AND ' . intval($space['max']) . ')'
             );
 
-
         } else if (!empty($space['min']) && empty($space['max'])) {
-
-
             $query->where(
                 '(' . $db->quoteName('v.available_space') . ' BETWEEN ' . intval($space['min']) . ' AND 999999999 )'
             );

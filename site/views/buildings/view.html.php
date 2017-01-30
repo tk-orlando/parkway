@@ -52,6 +52,7 @@ class parkwayViewBuildings extends JViewLegacy{
 
 
             $this->items            = $this->get('Items');
+        //$db = JFactory::getDBO(); echo $db->getQuery();
             $this->pagination       = $this->get('Pagination');
             $this->state            = $this->get('State');
             $this->filterForm       = $this->get('FilterForm');
