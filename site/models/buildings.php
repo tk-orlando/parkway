@@ -74,7 +74,13 @@ class parkwayModelBuildings extends JModelList
 
         return parent::getStoreId($id);
     }
-
+public function getAllVacancies(){
+    $query=$this->getListQuery();
+    $db = JFactory::getDbo();
+    $db->setQuery($query);
+    $result = $db->loadObjectList();
+    return $result;
+}
     protected function getListQueryTest()
     {
         // Create a new query object.
@@ -177,7 +183,6 @@ class parkwayModelBuildings extends JModelList
             $query->where(
                 '(' . $db->quoteName('v.available_space') . ' BETWEEN ' . intval($space['min']) . ' AND 999999999 )'
             );
-
 
         }
 

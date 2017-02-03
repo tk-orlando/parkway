@@ -1,11 +1,15 @@
 <?php
 // No direct access
-defined('_JEXEC') or die; ?>
+defined('_JEXEC') or die;
+$jinput = JFactory::getApplication()->input;
+$Itemid = $jinput->getInt('Itemid');
+//echo "itemid is $Itemid";
+?>
 
 <div class="uk-panel find-space-mod">
     <h3 class="uk-panel-title">Find Your Space</h3>
     <form id="parkway-search-form" method="post"
-          action="<?php echo JRoute::_('index.php?option=com_parkway&view=buildings&layout=byproperty'); ?>">
+          action="<?php echo JRoute::_('index.php?option=com_parkway&view=buildings&layout=byproperty&Itemid=265'); ?>">
         <select name="filter_property"
                 onchange="updateItemId(this.options[this.selectedIndex].getAttribute('attr-url'))">
             <option selected="" disabled="">Property</option>

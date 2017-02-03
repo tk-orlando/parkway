@@ -12,8 +12,6 @@ echo '------------------>'.$route.'<-------------------';
 $jinput = JFactory::getApplication()->input;
 $Itemid = $jinput->getInt('Itemid');
 
-
-
 ?>
 
 <article class="uk-article">
