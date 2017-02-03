@@ -120,19 +120,15 @@ class parkwayViewFloorplan extends JViewLegacy{
             if ($result){
                
                 $object = new stdClass();
-                $object->image = 'media/com_parkway/'.$result->image ;
+                $object->image = '/media/com_parkway/'.$result->image ;
                 $object->map = '<map name="floorplan_map">'.$result->coordinates.'</map>';
                 
                 return $object;
             }
-            
-            
-           
+
          }
          
          return ;
-         
-         
          
      }
      /*
@@ -286,13 +282,15 @@ class parkwayViewFloorplan extends JViewLegacy{
             
             $href = JRoute::_('index.php?option=com_parkway&view=floorplan&building='.$buildingID.'&planid='.$floorPlanID.'&suite='.$data_group.'');
             $tooltip = '';
-            
-            foreach ( $tooltips as $key=>$value ) {
-                if ( $data_group == $value->alias ) {
-                    $tooltip = $value->tooltip;
-                    
+            if(is_array($tooltips)){
+                foreach ( $tooltips as $key=>$value ) {
+                    if ( $data_group == $value->alias ) {
+                        $tooltip = $value->tooltip;
+
+                    }
                 }
             }
+
             
             
             $result .= '<a xlink:href="javascript:showSuite(\''.$data_group.'\');" >'."\r";
@@ -340,7 +338,7 @@ class parkwayViewFloorplan extends JViewLegacy{
                     //get database id of current floorplan
                     $query->select('id')  ; 
                     $query->from('#__parkway_floorplans');
-                    $query->where("building_id = $building AND alias LIKE '$floorplanName'");    
+                    $query->where("building_id = $building ");
                     $db->setQuery($query);
                     $floorplanID = $db->loadResult();
                      

@@ -6,6 +6,15 @@
 defined('_JEXEC') or die('Restricted access');
  
 //print_r($this->item);
+$db = JFactory::getDBO();
+$columns = $db->getTableColumns('#__parkway_properties');
+if(!isset($columns['item_id'])){
+    // run your query to add column
+    $query='ALTER TABLE #__parkway_properties ADD `item_id` int(10)';
+    $db->setQuery($query);
+    $result = $db->query();
+}
+
 
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_parkway&view=property&layout=edit&id=' . (int) $this->item->id); ?>"

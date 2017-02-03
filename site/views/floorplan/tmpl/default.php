@@ -164,6 +164,14 @@ $(document).ready(function() {
                             <?php echo $this->formatDate($value->date_available) ;?>
                         </td>
                     </tr>
+                    <tr>
+                        <td>PDF</td>
+                        <td>
+                            <?php if (isset($value->pdf) && !empty($value->pdf)):?>
+                                <a href="<?php echo "/media/com_parkway/$value->pdf" ?>" class="uk-icon-file-pdf-o" target="_blank"></a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

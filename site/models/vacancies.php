@@ -135,9 +135,7 @@ class parkwayModelVacancies extends JModelList{
                 
                 if (!empty( $property )){
                     
-                    $query->where(
-					'(' . $db->quoteName('b.property_id') . ' = ' . intval($property ). ')'
-				);
+                   // $query->where('(' . $db->quoteName('b.property_id') . ' = ' . intval($property ). ')');
                     
                 }
                                                    
@@ -160,8 +158,8 @@ class parkwayModelVacancies extends JModelList{
                 
                 $session = JFactory::getSession();
                 if ($session->get( 'max')){
-                    
-                    $space['max'] = (int) $session->get( 'max', $max );
+                    //TODO max isnt set anywhere....
+                  $space['max'] = (int) $session->get( 'max', $max );
                 }
               
                 

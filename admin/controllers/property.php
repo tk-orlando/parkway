@@ -43,6 +43,7 @@ class ParkwayControllerProperty extends JControllerAdmin
              $data =new stdClass();
                 $data->id = $form['id'];
                 $data->name = $form['name'];
+             $data->item_id = $form['item_id'];
                 
                 $db = JFactory::getDBO();
             
@@ -58,10 +59,7 @@ class ParkwayControllerProperty extends JControllerAdmin
 
                     $db->updateObject( '#__parkway_properties', $data, id );
             }
-            
-            
-          
-            
+
              
              $msg = JText::_( 'COM_PARKWAY_POST_SAVED' );
             $this->setRedirect( 'index.php?option=com_parkway', $msg );

@@ -99,7 +99,7 @@ defined('_JEXEC') or die('Restricted access');
 
 			        <tr>
 			            <td><?php echo $value->suite ?></td>
-			            <td><?php echo $value->floor ?></td>
+			            <td><?php echo $value->floor_level ?></td>
 			            <td><?php echo number_format($value->available_space, 0, '.', ',')  ?></td>
                                     <td><?php if ($value->divisible == 1){ echo 'Yes'; }else{ echo 'No'; } ?></td>
 			            <td><?php echo $value->market_rent ?></td>

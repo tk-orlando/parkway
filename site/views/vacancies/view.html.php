@@ -63,21 +63,19 @@ class parkwayViewVacancies extends JViewLegacy{
     public function getBuildingProfile(){
         
         $jinput = JFactory::getApplication()->input;
-        $propertyID = $jinput->get('filter_building');
+        $buildingID = $jinput->get('filter_building');
          
          
          
-         if (isset($propertyID) && !empty($propertyID)){
+         if (isset($buildingID) && !empty($buildingID)){
            
             $db = JFactory::getDbo();
             $query = $db->getQuery(true);
 
             $query->select('*')  ; 
             $query->from('#__parkway_buildings');
-           
-            
-            
-             $query->where("id = $propertyID"); 
+
+             $query->where("id = $buildingID");
                 
             $db->setQuery($query);
             $result = $db->loadObject();

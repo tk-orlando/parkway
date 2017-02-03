@@ -22,9 +22,9 @@
                                 <th>
                                     Date Available
                                 </th>
-                                <!--<th>
+                                <th>
                                     PDF
-                                </th>-->
+                                </th>
                             </tr>
 
                             <?php foreach ($this->items as $key => $value): ?>
@@ -37,11 +37,11 @@
                                 <td><?php echo '$'.$value->market_rent ?></td>
                                 <td><?php echo $this->formatDate($value->date_available) ?></td>
                                 
-                                <!--<td> 
+                                <td> 
                                     <?php if (isset($value->pdf) && !empty($value->pdf)):?>
-                                        <a href="<?php echo "/media/com_parkway/$value->pdf" ?>" class="uk-icon-file-pdf-o"></a>
+                                        <a href="<?php echo "/media/com_parkway/$value->pdf" ?>" class="uk-icon-file-pdf-o" target="_blank"></a>
                                     <?php endif; ?>
-                                </td>-->
+                                </td>
                             </tr>
    
                             <?php endforeach; ?>
