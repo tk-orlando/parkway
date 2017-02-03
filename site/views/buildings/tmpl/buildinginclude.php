@@ -1,5 +1,8 @@
 <?php if ($mycount % 2 == 0):
 //var_dump($value);
+
+$jinput = JFactory::getApplication()->input;
+$Itemid = $jinput->getInt('Itemid');
 ?>
 
 <div class="uk-grid">
@@ -87,12 +90,12 @@
 
                 <p class="results-links">
                     <a class="uk-button"
-                       href="<?php echo JRoute::_( "index.php?option=com_parkway&view=vacancies&layout=bybuilding&filter_building=$value->id") ?>">View
+                       href="<?php echo JRoute::_( "index.php?option=com_parkway&view=vacancies&layout=bybuilding&filter_building=$value->id&Itemid=$Itemid") ?>">View
                         Listings </a><br>
                 </p>
                 <p class="results-links ie">
                     <a class="uk-button"
-                       href="<?php echo JRoute::_( "index.php?option=com_parkway&view=floorplan&building=$value->id&planid=" )?>">View
+                       href="<?php echo JRoute::_( "index.php?option=com_parkway&view=floorplan&building=$value->id&planid=&Itemid=$Itemid" )?>">View
                         Floor Plans</a>
                 </p>
 

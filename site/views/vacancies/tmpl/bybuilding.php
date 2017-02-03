@@ -22,7 +22,7 @@ $count= count((array)$this->items);
     <h1 class="uk-article-title"> Building Details </h1>
     <div class="uk-grid">
         <div class="uk-width-medium-1-4">
-            <a href="<?php echo JRoute::_( "index.php?option=com_parkway&view=floorplan&building=" . $building->id ."&planid=") ?>" class="uk-button uk-margin-bottom" style="width:100%;">View Floor Plans</a>
+            <a href="<?php echo JRoute::_( "index.php?option=com_parkway&view=floorplan&building=" . $building->id ."&planid=&Itemid=$Itemid") ?>?" class="uk-button uk-margin-bottom" style="width:100%;">View Floor Plans</a>
             <!-- //var buildingDetailGallery from widgetkit -->
             <?php echo $widget; ?>
             <?php echo JHTML::_('content.prepare', '{loadposition building-gallery}');?>
