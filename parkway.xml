@@ -7,7 +7,7 @@
 	<license>see LICENSE.txt</license>
 	<authorEmail>support@tko-orlando.com</authorEmail>
 	<authorUrl>www.tkorlando.com</authorUrl>
-	<version>1.0.8</version>
+	<version>1.0.9</version>
 	<description>Parkway Online Property Listings.</description>
         
         <!-- Runs on install/uninstall/update; New in 1.6 -->
