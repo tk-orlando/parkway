@@ -1,54 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
+
+
+
     <fieldset label="COM_PARKWAY_OPTIONS_TAP_LABEL" name="parkway">
-        <field 
-            nam="pdfuploadfolder"
-            type="folderlist"
-            label="COM_PARKWAY_PDF_UPLOADS_LABEL"
-            directory="media/media"
-        
+        <field
+                nam="pdfuploadfolder"
+                type="folderlist"
+                label="COM_PARKWAY_PDF_UPLOADS_LABEL"
+                directory="media/media"
+
         />
-        <field 
-            nam="widgetkitfolder"
-            type="folderlist"
-            label="COM_PARKWAY_WIDGETKIT_LABEL"
-            directory="media/media"
-        
+        <field
+                nam="widgetkitfolder"
+                type="folderlist"
+                label="COM_PARKWAY_WIDGETKIT_LABEL"
+                directory="media/media"
+
         />
         <field name="show_pagination_limit" type="radio"
-			default="1"
-			class="btn-group btn-group-yesno"
-			description="JGLOBAL_DISPLAY_SELECT_DESC"
-			label="JGLOBAL_DISPLAY_SELECT_LABEL"
-		>
-			<option value="1">JSHOW</option>
-			<option value="0">JHIDE</option>
-        </field>   
-        
+               default="1"
+               class="btn-group btn-group-yesno"
+               description="JGLOBAL_DISPLAY_SELECT_DESC"
+               label="JGLOBAL_DISPLAY_SELECT_LABEL"
+        >
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+        </field>
 
-          
-        
-    </fieldset>
-    <fieldset 
-        name="permissions"
-	description="JCONFIG_PERMISSIONS_DESC"
-	label="JCONFIG_PERMISSIONS_LABEL">
 
-		<field 
-                    name="rules" 
-                    type="rules" 
-                    component="com_parkway"
-                    class="inputbox" 
-                    filter="rules" 
-                    validate="rules"
-                    label="JCONFIG_PERMISSIONS_LABEL"
-                    section="component" />
     </fieldset>
-     
-        
-        
-        
-        
-        
-        
+    <fieldset
+            name="permissions"
+            description="JCONFIG_PERMISSIONS_DESC"
+            label="JCONFIG_PERMISSIONS_LABEL">
+
+        <field
+                name="rules"
+                type="rules"
+                component="com_parkway"
+                class="inputbox"
+                filter="rules"
+                validate="rules"
+                label="JCONFIG_PERMISSIONS_LABEL"
+                section="component"/>
+    </fieldset>
+
 </config>

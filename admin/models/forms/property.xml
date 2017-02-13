@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fieldset>
+		<field name="venues"
+			   type="Repeatable"
+			   icon="list"
+			   description="Add multiple venues to the property"
+			   label="User defined venues for property" default="">
+			<fieldset hidden="true" name="list_settingidsudd_modal" repeat="true">
+				<field name="venue_name"
+					   label="Venue"
+					   description="Venue"
+					   multiple="multiple"
+				/>
+
+			</fieldset>
+		</field>
 		<field
 				name="id"
 				type="hidden"
@@ -19,7 +33,7 @@
 				name="item_id"
 				type="text"
 				label="Item Id"
-				description="COM_PARKWAY_PROPERTY_NAME_DESC"
+				description="The menu item id"
 				size="40"
 				class="inputbox"
 				default=""

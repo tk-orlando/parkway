@@ -22,8 +22,22 @@ class ParkwayViewProperty extends JViewLegacy
 
                 return false;
         }
-        
-        
+
+
+
+        $db = JFactory::getDBO();
+        $columns = $db->getTableColumns('#__parkway_properties');
+        if(!isset($columns['venues'])){
+            // run your query to add column
+            $query='ALTER TABLE #__parkway_properties ADD `venues` TEXT';
+            $db->setQuery($query);
+            $result = $db->query();
+        }
+
+
+
+
+
         $this->addToolbar();
         //JHtml::_('jquery.framework');
 
